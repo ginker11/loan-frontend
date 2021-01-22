@@ -1,8 +1,23 @@
-import React from "react";
-import { HydraAdmin } from "@api-platform/admin";
+import * as React from "react";
+import { HydraAdmin,
+        ResourceGuesser,
+        ListGuesser,
+        FieldGuesser
+      } from "@api-platform/admin";
 
-// Replace with your own API entrypoint
-// For instance if https://example.com/api/books is the path to the collection of book resources, then the entrypoint is https://example.com/api
+import {TextField, EmailField} from 'react-admin';
+import {ContactsList} from './components/ContactsList'
+import {theme} from './util/Theme'
+
+
 export default () => (
-  <HydraAdmin entrypoint="https://bridge-loan-react.local:8889/api" />
+  <HydraAdmin entrypoint="http://bridge-loan-api.local:8989/api" theme={theme}
+              // dataProvider = {dataProvider}
+              // authProvider
+              // loginPage {login}
+              >
+                <ResourceGuesser name = 'contacts' list = {ContactsList} />
+  </HydraAdmin>
+
+    
 );
