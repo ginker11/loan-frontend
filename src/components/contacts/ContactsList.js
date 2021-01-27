@@ -1,7 +1,10 @@
-import React from 'react';
+import React, {cloneElement} from 'react';
 import {ListGuesser} from "@api-platform/admin";
-
-import {TextField, EmailField} from 'react-admin';
+import {ListActions} from '../ListActions';
+import {
+    TextField,
+    EmailField,
+} from 'react-admin';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
@@ -14,7 +17,7 @@ const useStyles = makeStyles({
 export const ContactsList = props => {
     const classes = useStyles();
     return (
-         <ListGuesser  className = {classes.headers} {...props}>
+         <ListGuesser  className = {classes.headers} actions = {<ListActions />} title = 'Contacts' {...props}>
              <TextField className = {classes.contact} source = 'firstName' />
              <TextField className = {classes.contact} source = 'lastName' />
              <EmailField className = {classes.contact} source = 'email' />
