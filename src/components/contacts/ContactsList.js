@@ -1,6 +1,6 @@
 import React, {cloneElement} from 'react';
 import {ListGuesser} from "@api-platform/admin";
-import {ListActions} from '../ListActions';
+import {ListActions} from '../actions/ListActions';
 import {
     TextField,
     EmailField,
@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
     contact: {
        fontSize: '1.25em'
-    },
+    }
 
 });
 

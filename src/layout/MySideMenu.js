@@ -8,15 +8,19 @@ import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import BusinessIcon from '@material-ui/icons/Business';
 import MoneyIcon from '@material-ui/icons/Money';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 const useStyles = makeStyles({
     root: {
-        backgroundColor: 'rgba(167,173,186,0.7)'
+        backgroundColor: 'rgba(167,173,186,0.4)'
     },
     divider: {
         backgroundColor: 'rgba(80,80,80,0.2)'
     },
     button: {
-        color: '#FF6961',
+        color: 'rgba(201, 36, 3, 0.8)',
+    },
+    dshButton: {
+        color: 'rgba(5, 4, 1, 0.8)'
     }
 });
 
@@ -27,8 +31,9 @@ const MySideMenu = ({ onMenuClick, toggleSidebar, logout }) => {
 
     return (
         <div className = {classes.root}>
-            <DashboardMenuItem onClick={toggleSidebar} to = '/'
-                            primaryText = 'Home' sidebarIsOpen={open} />
+            <MenuItemLink to = '/' primaryText = 'Home' 
+                          leftIcon = {<DashboardIcon className = {classes.dshButton}/>} onClick = {onMenuClick}
+                          sidebarIsOpen = {open} />
             <Divider className = {classes.divider}/>
             <MenuItemLink to = '/contacts' primaryText = 'Contacts' 
                           leftIcon = {<ContactsIcon className = {classes.button}/>} onClick = {onMenuClick}

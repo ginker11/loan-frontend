@@ -6,12 +6,14 @@ export const theme = createMuiTheme(
   merge({}, defaultTheme, {
     palette: {
       primary: {
-        light: '#ff5722',
-        main: '#f4511e',
-        dark: '#d84315'
+        light: '#69CDF2',
+        main: '#C92403',
+        dark: '#0F80A9'
       },
       secondary: {
-        main: '#FF6961'
+        light: '#B3B3B6',
+        main: '#050401',
+        dark: '#131316'
       },
     },
     overrides: {

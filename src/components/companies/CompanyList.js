@@ -1,7 +1,7 @@
 import React from 'react';
 import {ListGuesser} from "@api-platform/admin";
 import {TextField} from 'react-admin';
-import {ListActions} from '../ListActions';
+import {ListActions} from '../actions/ListActions';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({

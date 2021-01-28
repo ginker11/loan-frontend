@@ -1,6 +1,6 @@
 import React from 'react';
 import {ListGuesser} from "@api-platform/admin";
-import {ListActions} from '../ListActions';
+import {ListActions} from '../actions/ListActions';
 import {TextField} from 'react-admin';
 import { makeStyles } from '@material-ui/core/styles';
 
