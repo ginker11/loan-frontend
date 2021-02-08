@@ -1,6 +1,6 @@
 import React from 'react';
-import {ListGuesser} from "@api-platform/admin";
-import {TextField} from 'react-admin';
+import {ListGuesser} from '@api-platform/admin';
+import {List, Datagrid, TextField} from 'react-admin';
 import {ListActions} from '../actions/ListActions';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -11,13 +11,14 @@ const useStyles = makeStyles({
 
 });
 
+
 export const CompanyList = props => {
     const classes = useStyles();
     return (
          <ListGuesser  className = {classes.headers} actions = {<ListActions />} title = 'Companies' {...props}>
-             <TextField className = {classes.contact} source = 'name' />
-             <TextField className = {classes.contact} source = 'city' />
-             <TextField className = {classes.contact} source = "state" />
+                <TextField className = {classes.contact} source = 'name' />
+                <TextField className = {classes.contact} source = 'city' />
+                <TextField className = {classes.contact} source = "state" />
          </ListGuesser>
     )
 }

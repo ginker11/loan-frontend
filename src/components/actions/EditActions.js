@@ -1,5 +1,5 @@
 import React from 'react';
-import { TopToolbar, ListButton } from 'react-admin';
+import { SaveButton, TopToolbar, ListButton } from 'react-admin';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 
 

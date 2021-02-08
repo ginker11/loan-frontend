@@ -24,7 +24,7 @@ const MyAppBar = props => {
     return (
         <AppBar {...props} userMenu = {<MyUserMenu />}>
             <Typography
-                variant="title"
+                variant="h1"
                 color="inherit"
                 className={classes.title}
                 id="react-admin-title"

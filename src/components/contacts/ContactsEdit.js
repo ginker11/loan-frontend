@@ -27,28 +27,28 @@ export const ContactsEdit = props => {
         <EditGuesser title = {<ContactsTitle />} actions = {<EditActions />} {...props}>
             <div className = {classes.root}>
                 <Grid container direction="row" justify="center" alignItems="center" spacing={3}>
-                    <Grid item className = {classes.gridItem} xs = {12} sm = {4} lg = {4}>
+                    <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                         <TextInput fullWidth  label = 'First Name' source = 'firstName' />
                     </Grid>
-                    <Grid item className = {classes.gridItem} xs = {12} sm = {4} lg = {4}>
+                    <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                         <TextInput fullWidth  label = 'Last Name' source = 'lastName' />
                     </Grid>
-                    <Grid item className = {classes.gridItem} xs = {12} sm = {4} lg = {4}>
+                    <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                         <TextInput fullWidth  label = 'Email Address' source = 'email' />
                     </Grid>
-                    <Grid item className = {classes.gridItem} xs = {12} sm = {4} lg = {4}>
+                    <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                         <TextInput fullWidth label = 'Street Address' source = 'streetAddress' />
                     </Grid>
-                    <Grid item className = {classes.gridItem} xs = {12} sm = {4} lg = {4}>
+                    <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                         <TextInput fullWidth label = 'City' source = 'city' />
                     </Grid>
-                    <Grid item className = {classes.gridItem} xs = {12} sm = {4} lg = {4}>
+                    <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                         <TextInput fullWidth label = 'State' source = 'state' />
                     </Grid>
-                    <Grid item className = {classes.gridItem} xs = {12} sm = {4} lg = {4}>
+                    <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                         <TextInput fullWidth label = 'Country' source = 'country' />
                     </Grid>
-                    <Grid item className = {classes.gridItem} xs = {12} sm = {4} lg = {4}>
+                    <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                         <TextInput fullWidth label = 'Postal Code' source = 'postalCode' />
                     </Grid>
                 </Grid>
