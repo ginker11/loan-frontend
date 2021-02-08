@@ -36,9 +36,8 @@ function CompanyQuickCreateButton({onChange}) {
             {
                 onSuccess: ({ data }) => {
                     setOpen(false);
-                    console.log('Data:  ' + data);
-                    // createForm.change('id', data.id);
-                    // onChange();
+                    createForm.change('id', data.id);
+                    onChange();
                 },
                 onFailure: ({ error }) => {
                     notify(error.message, 'error');

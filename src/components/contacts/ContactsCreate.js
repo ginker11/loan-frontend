@@ -24,10 +24,9 @@ const ContactsTitle = ({record}) => {
 export const ContactsCreate = props => {
     const classes = useStyles();
     return(
-        <Create title = {<ContactsTitle />} actions = {<EditActions />} {...props}>
-            <SimpleForm>
+        <CreateGuesser title = {<ContactsTitle />} actions = {<EditActions />} {...props}>
                 <div className = {classes.root}>
-                    <Grid container direction="row" justify="center" alignItems="center" spacing={3}>
+                    <Grid container direction="row" alignItems="center" spacing={3}>
                         <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                             <TextInput fullWidth  label = 'First Name' source = 'firstName' />
                         </Grid>
@@ -54,9 +53,6 @@ export const ContactsCreate = props => {
                         </Grid>
                     </Grid>
                 </div>
-
-            </SimpleForm>
-
-        </Create>
+        </CreateGuesser>
     )
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import {CreateGuesser} from "@api-platform/admin";
-import { Create, SimpleForm, TextInput } from 'react-admin';
+import { TextInput } from 'react-admin';
 import {EditActions} from '../actions/EditActions';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -24,8 +24,6 @@ export const CompanyCreate = props => {
 
     return (
             <CreateGuesser title = {<CompanyTitle />} actions = {<EditActions />} {...props}>
-                {/* <SimpleForm >
-                    <> */}
                     <div className = {classes.root}>
                         <Grid container direction="row" justify="center" alignItems="center" spacing={3}>
                             <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
@@ -48,8 +46,6 @@ export const CompanyCreate = props => {
                             </Grid>
                         </Grid>
                     </div>
-                    {/* </>                    
-                </SimpleForm> */}
             </CreateGuesser>
        
             
