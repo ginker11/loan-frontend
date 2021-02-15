@@ -16,10 +16,12 @@ export const theme = createMuiTheme(
         dark: '#131316'
       },
     },
+    typography: {
+      fontFamily: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Arial', 'sans-serif'].join(','),
+    },
     overrides: {
         MuiTableRow: {
         head: {
-            backgroundColor: 'lightgray',
             "& > th ": {
             color: 'black',
             fontWeight: 'bold',
@@ -37,6 +39,7 @@ export const theme = createMuiTheme(
           },
           active: {
               '& svg' : {color: '#C92403'},
+              backgroundColor: 'rgba(167,173,186,0.8)',
               fontWeight: 'Bold',
               color: 'rgba(20,20,30,0.9)'
           },

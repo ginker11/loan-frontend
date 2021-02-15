@@ -2,7 +2,6 @@ import * as React from "react";
 import { HydraAdmin, hydraDataProvider as baseHydraDataProvider, fetchHydra as baseFetchHydra, useIntrospection, ResourceGuesser } from "@api-platform/admin";
 import parseHydraDocumentation from "@api-platform/api-doc-parser/lib/hydra/parseHydraDocumentation";
 import { Route, Redirect } from 'react-router-dom';
-import {Resource} from 'react-admin';
 
 import authProvider from "./authProvider";
 import MyLayout from './layout/MyLayout';
@@ -92,5 +91,7 @@ export default () => (
             show = {false} edit = {FinancingSourcesEdit} create = {FinancingSourcesCreate}/>
         <ResourceGuesser name = 'lien_positions' list = {LienPositionList}
                 show = {false} edit = {LienPositionEdit} create = {LienPositionCreate}/>
+        <ResourceGuesser name = 'borrowers' show = {false}/>
+        <ResourceGuesser name = 'project_financing_sources' show = {false} />
     </HydraAdmin>
 );

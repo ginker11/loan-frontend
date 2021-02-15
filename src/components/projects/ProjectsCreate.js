@@ -1,14 +1,15 @@
 import React from 'react';
 import {CreateGuesser} from "@api-platform/admin";
-import {TextInput, AutocompleteInput, NumberInput, ReferenceInput, DateInput, NullableBooleanInput} from 'react-admin';
+import {TextInput, AutocompleteInput, NumberInput, ReferenceInput, AutocompleteArrayInput, ReferenceArrayInput, SelectArrayInput, DateInput, NullableBooleanInput} from 'react-admin';
 import CompanyQuickCreateButton from '../companies/CompanyQuickCreateButton';
+import ContactsQuickCreateButton from '../contacts/ContactsQuickCreateButton';
 import {EditActions} from '../actions/EditActions';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      width: '80%',
+      width: '90%',
       display: 'flex',
       marginLeft: 'auto',
       marginRight: 'auto'
@@ -17,10 +18,13 @@ const useStyles = makeStyles((theme) => ({
         width: '15%'
     },
     nestedGridItem: {
-        width: '93%'
+        width: '95%'
     },
     addButton: {
         width: '5%'
+    },
+    selectItem: {
+        width: '90%'
     }
   }));
 
@@ -72,26 +76,45 @@ export const ProjectsCreate = props => {
                             <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                                 <TextInput fullWidth label = 'Eligible Fees' source = 'eligibleFees' />
                             </Grid>
-                            <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {6}>
-                                 <Grid container direction = 'row' alignItems="center" spacing = {0}>
-                                    <Grid item className = {classes.nestedGridItem}>
-                                        <ReferenceInput source='borrower' reference='borrowers' label='Borrower' 
-                                            filterToQuery={(searchText) => ({ title: searchText })}>
-                                                <AutocompleteInput fullWidth optionText='contact'/>
-                                        </ReferenceInput>
+                            <Grid item className = {classes.gridItem} xs = {12} sm = {12} lg = {12}>
+                                 <Grid container direction = 'row' alignItems="center" spacing = {6}>
+                                    <Grid item style = {{width: '50%'}}>
+                                        <Grid container direction = 'row' alignItems="center" spacing = {0}>
+                                            <Grid item className = {classes.selectItem}>
+                                                {/* ReferenceManyField
+                                                        DataGrid
+                                                    /ReferenceManyField */}
+                                                <ReferenceArrayInput label = 'Borrowing Companies' source="borrowers" reference="companies">
+                                                    <AutocompleteArrayInput  fullWidth optionText="name" />
+                                                </ReferenceArrayInput>
+                                            </Grid>
+                                            <Grid item className = {classes.addButton}>
+                                                <CompanyQuickCreateButton />
+                                            </Grid>
+                                        </Grid>
                                     </Grid>
-                                    <Grid item className = {classes.addButton}>
-                                            {/* <BorrowerQuickCreateButton /> */}
+                                    <Grid item style = {{width: '50%'}}>
+                                        <Grid container direction = 'row' alignItems="center" spacing = {0}>
+                                            <Grid item className = {classes.selectItem}>
+                                                <ReferenceArrayInput label = 'Borrowing Contacts' source="contacts" reference="contacts">
+                                                    <AutocompleteArrayInput  fullWidth optionText = {
+                                                            contact => `${contact.firstName}` + ' ' + `${contact.lastName}` } />
+                                                </ReferenceArrayInput>
+                                            </Grid>
+                                            <Grid item className = {classes.addButton}>
+                                                <ContactsQuickCreateButton />
+                                            </Grid>
+                                        </Grid>
                                     </Grid>
+
                                 </Grid>
                             </Grid>
-                            <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {6}>
+                            <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {8}>
                                  <Grid container direction = 'row' alignItems="center" spacing = {0}>
                                     <Grid item className = {classes.nestedGridItem}>
-                                        <ReferenceInput source='projectOperatingCompanyOwnership' reference='project_operating_company_ownerships' label='Project Operating Company Ownership' 
-                                            filterToQuery={(searchText) => ({ title: searchText })}>
-                                                <AutocompleteInput fullWidth optionText='contact'/>
-                                        </ReferenceInput>
+                                            <ReferenceArrayInput label = 'Project Operating Company Ownerships' source='projectOperatingCompanyOwnership' reference='project_operating_company_ownerships'>
+                                                <SelectArrayInput  fullWidth optionText='name'/>
+                                            </ReferenceArrayInput>
                                     </Grid>
                                     <Grid item className = {classes.addButton}>
                                             {/* <POCOQuickCreateButton /> */}
@@ -132,12 +155,11 @@ export const ProjectsCreate = props => {
                                 <TextInput multiline fullWidth label = 'Sale Increases' source = 'saleIncreases' />
                             </Grid>
                             <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
-                                <NullableBooleanInput fullWidth label = 'SBA Appraisal Approval' source = 'sbaAppraisalApproval' />
+                                <NullableBooleanInput style = {{width: '100%'}} label = 'SBA Appraisal Approval' source = 'sbaAppraisalApproval' />
                             </Grid>
                             <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
-                                <NullableBooleanInput fullWidth label = 'Environmental Approval' source = 'environmentalApproval' />
+                                <NullableBooleanInput  style = {{width: '100%'}} label = 'Environmental Approval' source = 'environmentalApproval' />
                             </Grid>
-                            
                         </Grid>
                     </div>
         </CreateGuesser>

@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import { AppBar } from 'react-admin';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,7 +15,7 @@ const useStyles = makeStyles({
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         marginLeft: '2rem',
-        fontSize: '1.6rem'
+        fontSize: '1.8rem'
     }
 });
 
@@ -32,29 +32,5 @@ const MyAppBar = props => {
         </AppBar>
     );
 };
-
-
-// const MyAppBar = props => {
-//     const classes = useStyles();
-//     const {sideBarIsOpen, handleSideBar} = useContext(UIContext);
-//     const handleOpen = () => {
-//         handleSideBar();
-//     }
-//     let sideBarIcon = sideBarIsOpen ? <CloseIcon /> : <MenuIcon />;
-    
-//     return (
-//         <div className = {classes.barRoot}>
-//             <AppBar {...props} color = 'transparent'>
-//                 <Toolbar>
-//                     <IconButton onClick = {handleSideBar}>
-//                         {sideBarIcon}
-//                     </IconButton>
-//                         <Typography variant="title" className = {classes.title} id="react-admin-title"/>
-//                     <UserMenu />
-//                 </Toolbar>
-//             </AppBar>
-//         </div>
-//     )
-// };
 
 export default MyAppBar;

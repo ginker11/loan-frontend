@@ -20,7 +20,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 
 function CompanyQuickCreateButton({onChange}) {
     const [open, setOpen] = useState(false);
-    const [create, { loading }] = useCreate('companies');
+    const [create, { loading }] = useCreate('contacts');
     const notify = useNotify();
     const createForm = useForm();
 
@@ -52,8 +52,8 @@ function CompanyQuickCreateButton({onChange}) {
                 <IconContentAdd />
             </Button>
             <Dialog fullWidth open = {open} onClose = {handleClose} aria-label = 'Create post'>
-                <DialogTitle>Create a New Company</DialogTitle>
-                <FormWithRedirect resource='companies' save={handleSubmit}
+                <DialogTitle>Create a New Contact</DialogTitle>
+                <FormWithRedirect resource='contacts' save={handleSubmit}
                     render={({
                         handleSubmitWithRedirect,
                         pristine,
@@ -61,12 +61,14 @@ function CompanyQuickCreateButton({onChange}) {
                     }) => (
                         <>
                            <DialogContent>
-                                <TextInput fullWidth  label = 'Company Name' source = 'name' id = 'companyName2' />
-                                <TextInput fullWidth label = 'Street Address' source = 'streetAddress' id = 'streetAddress2' />
-                                <TextInput fullWidth label = 'City' source = 'city' id = 'city2' />
-                                <TextInput fullWidth label = 'State' source = 'state' id = 'state2'/>
-                                <TextInput fullWidth label = 'Country' source = 'country' id = 'country2'/>
-                                <TextInput fullWidth label = 'Postal Code' source = 'postalCode' id = 'postalCode2'/>
+                                <TextInput fullWidth  label = 'First Name' source = 'firstName' id = 'firstName2' />
+                                <TextInput fullWidth  label = 'Last Name' source = 'lastName' id = 'lastName2' />
+                                <TextInput fullWidth  label = 'Email Address' source = 'email' id = 'email2' />
+                                <TextInput fullWidth label = 'Street Address' source = 'streetAddress' id = 'streetAddress3' />
+                                <TextInput fullWidth label = 'City' source = 'city' id = 'city3' />
+                                <TextInput fullWidth label = 'State' source = 'state' id = 'state3'/>
+                                <TextInput fullWidth label = 'Country' source = 'country' id = 'country3'/>
+                                <TextInput fullWidth label = 'Postal Code' source = 'postalCode' id = 'postalCode3'/>
                            </DialogContent>
                            <DialogActions>
                                 <Button
