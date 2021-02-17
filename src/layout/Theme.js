@@ -28,6 +28,11 @@ export const theme = createMuiTheme(
             }
         }
       },
+      RaAutocompleteSuggestionList: {
+        suggestionsContainer: {
+          zIndex: '9999!important'
+        }
+      },
         RaMenuItemLink: {
           root: {
               borderLeft: '3px solid #fff',

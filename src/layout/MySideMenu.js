@@ -32,14 +32,14 @@ const MySideMenu = ({ onMenuClick, toggleSidebar, logout }) => {
                           sidebarIsOpen = {open} />
             <MenuItemLink to = '/projects' primaryText = 'Projects' 
                           leftIcon = {<AssignmentIcon onClick = {onMenuClick} />}
-                          sidebarIsOpen = {open} /> 
+                          sidebarIsOpen = {open}/> 
             <MenuItemLink to = '/lien_positions' primaryText = 'Lien Positions' 
                           leftIcon = {<FormatListNumberedIcon onClick = {onMenuClick} /> }
                           sidebarIsOpen = {open} />
             <MenuItemLink to = '/borrowers' primaryText = 'Borrowers' 
                           leftIcon = {<PeopleIcon onClick = {onMenuClick} /> }
                           sidebarIsOpen = {open} />
-            {/* <MenuItemLink to = '/project_financing_sources' primaryText = 'Project Financing Sources' 
+            {/* <MenuItemLink to = '/borrower_company_ownership' primaryText = 'Borrower Company Ownership' 
                           leftIcon = {<AccountBalanceIcon onClick = {onMenuClick} /> }
                           sidebarIsOpen = {open} /> */}
             {isXSmall && logout}

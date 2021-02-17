@@ -16,7 +16,7 @@ export const ProjectsList = props => {
     return (
             <ListGuesser  className = {classes.headers} actions = {<ListActions />} title = 'Projects' {...props}>
              <ReferenceField label = 'Operating Company' source = 'operatingCompany' reference = 'companies'>
-                 <TextField name = 'name' />
+                 <TextField source = 'name' />
              </ReferenceField>
          </ListGuesser>         
     )

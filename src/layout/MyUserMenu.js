@@ -4,9 +4,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 
 
 export default function MyUserMenu(props) {
-
     return (
-
         <UserMenu {...props}>
             <MenuItemLink to = {'/'} 
                 primaryText = {'profile'} 

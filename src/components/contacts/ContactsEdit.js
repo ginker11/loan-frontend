@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 const ContactsTitle = ({record}) => {
-    return 'Edit - ' + record.name
+    return 'Edit - ' + record.firstName + ' ' + record.lastName
 }
 
 export const ContactsEdit = props => {
