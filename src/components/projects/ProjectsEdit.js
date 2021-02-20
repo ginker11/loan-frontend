@@ -1,13 +1,19 @@
 import React from 'react';
 import {FieldGuesser} from "@api-platform/admin";
-import {TextInput, AutocompleteInput, NumberInput, Datagrid, Edit, TabbedForm, FormTab, ReferenceInput, AutocompleteArrayInput, ReferenceArrayInput, ReferenceManyField, SelectArrayInput, DateInput, NullableBooleanInput} from 'react-admin';
+import {TextInput, AutocompleteInput, NumberInput, Datagrid, Edit, TabbedForm, 
+        FormTab, ReferenceInput, ReferenceManyField, DateInput, TextField,
+        NullableBooleanInput} from 'react-admin';
 import CompanyFormField from '../companies/CompanyFormField';
-import BorrowerFormField from '../borrowers/BorrowerFormField';
+import BorrowerEditFormField from '../borrowers/BorrowerEditFormField';
+import CompanyBorrowerFormField from '../borrowers/CompanyBorrowerFormField';
+import ContactBorrowerFormField from '../borrowers/ContactBorrowerFormField';
+import ProjectFinancingSourceFormFields from '../project_financing_sources/ProjectFinancingSourceFormFields';
 import ModalCreateButton from '../helpers/ModalCreateButton';
 import Divider from '@material-ui/core/Divider';
 import {EditActions} from '../actions/EditActions';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import ModalEditButton from '../helpers/ModalEditButton';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,7 +44,7 @@ export const ProjectsEdit = props => {
 
     const classes = useStyles();
     return(
-        <Edit {...props} actions = {<EditActions />} title = {<ProjectTitle />}>
+        <Edit {...props} actions = {<EditActions title = {<ProjectTitle />} />} >
         <TabbedForm>
             <FormTab label={'General Info'}>
                 <>
@@ -57,7 +63,6 @@ export const ProjectsEdit = props => {
                                             dialogResource="companies"
                                             dialogFormField="companies"
                                             dialogTitle="Add a Company"
-                                            dialogMergeFormValues={{ company: props.id }}
                                             actionTypeCreate
                                             >
                                                 <CompanyFormField />
@@ -96,29 +101,102 @@ export const ProjectsEdit = props => {
                     </div>
                 </>
             </FormTab>
-            <FormTab label={'Financing Sources'} path={'Edit_Financing'}>
-
-            </FormTab>
-            <FormTab label={'Project Borrowers'} path = {'EditBorrowers'}>
-                <ReferenceManyField label = 'Borrowers' reference="borrowers" target = 'project'>
+            <FormTab label={'Financing Sources'} path={'edit_financing'}>
+            <ReferenceManyField label = 'Project Financing Sources' reference="project_financing_sources" target = 'project'>
                     <Datagrid>
-                        <FieldGuesser source = 'company'/>
-                        <FieldGuesser source = 'contact'/> 
+                        <FieldGuesser source = 'project'/>
+                        <FieldGuesser source = 'financingSource'/>
+                        <FieldGuesser source = 'amount'/>
+                        <FieldGuesser source = 'principalAndInterestPayment'/>
+                        <FieldGuesser source = 'rate'/>
+                        <FieldGuesser source = 'percentage'/>
+                        <FieldGuesser source = 'lienPosition'/>
+                        <ModalEditButton
+                                dialogResource="project_financing_sources"
+                                dialogFormField="project_financing_sources"
+                                dialogTitle="Edit Borrower"
+                                dialogMergeFormValues={{ project: props.id }}
+                                dialogRedirect={`/projects/${encodeURIComponent(
+                                props.id
+                                )}/edit_financing`}
+                                dialogAddTextLabel="Edit"
+                                actionTypeEdit
+                            >
+                                <ProjectFinancingSourceFormFields projectId = {props.id}/>
+                            </ModalEditButton>
                     </Datagrid>
                 </ReferenceManyField>
                 <ModalCreateButton
-                    dialogResource="borrowers"
-                    dialogFormField="borrowers"
-                    dialogTitle="Add a Borrower"
+                    dialogResource="project_financing_sources"
+                    dialogFormField="project_financing_sources"
+                    dialogTitle="Add a Financing Source"
                     dialogMergeFormValues={{ project: props.id }}
                     dialogRedirect={`/projects/${encodeURIComponent(
                         props.id
-                    )}/EditBorrowers`}
-                    dialogAddTextLabel="Add a Borrower"
+                    )}/edit_financing`}
+                    dialogAddTextLabel="Add a Financing Source"
                     actionTypeEdit
                     >
-                        <BorrowerFormField />
+                        <ProjectFinancingSourceFormFields  projectId = {props.id} />
                     </ModalCreateButton>
+            </FormTab>
+            <FormTab label={'Project Borrowers'} path = {'edit_borrowers'}>
+                <ReferenceManyField label = 'Project Borrowers' reference="borrowers" target = 'project' {...props}>
+                    <Datagrid>
+                        <FieldGuesser source = 'company'/>
+                        <FieldGuesser source = 'contact'/> 
+                        <FieldGuesser source = 'borrowerCompanyOwnership' />
+                        <ModalEditButton
+                                dialogResource="borrowers"
+                                dialogFormField="borrowers"
+                                dialogTitle="Edit Borrower"
+                                dialogMergeFormValues={{ project: props.id }}
+                                dialogRedirect={`/projects/${encodeURIComponent(
+                                props.id
+                                )}/edit_borrowers`}
+                                dialogAddTextLabel="Edit"
+                                actionTypeEdit
+                            >
+                                <BorrowerEditFormField />
+                            </ModalEditButton>
+                    </Datagrid>
+                </ReferenceManyField>
+                <div style = {{width : '40%'}}>
+                    <Grid container direction = 'col'>
+                        <Grid item xs = {6}>
+                            <ModalCreateButton
+                                dialogResource="borrowers"
+                                dialogFormField="borrowers"
+                                dialogTitle="Add a Company Borrower"
+                                dialogMergeFormValues={{ project: props.id }}
+                                dialogRedirect={`/projects/${encodeURIComponent(
+                                    props.id
+                                )}/edit_borrowers`}
+                                dialogAddTextLabel="Add a Company Borrower"
+                                actionTypeEdit
+                                >
+                                    <CompanyBorrowerFormField />
+                                </ModalCreateButton>
+                        </Grid>
+                        <Grid item xs = {6}>
+                            <ModalCreateButton
+                                dialogResource="borrowers"
+                                dialogFormField="borrowers"
+                                dialogTitle="Add a Contact Borrower"
+                                dialogMergeFormValues={{ project: props.id }}
+                                dialogRedirect={`/projects/${encodeURIComponent(
+                                    props.id
+                                )}/edit_borrowers`}
+                                dialogAddTextLabel="Add a Contact Borrower"
+                                actionTypeEdit
+                                >
+                                    <ContactBorrowerFormField />
+                                </ModalCreateButton>
+                        </Grid>
+                    </Grid>
+                </div>
+                
+                    
             </FormTab>
             <FormTab label = 'Additional Information' source = 'AdditionalInformation'>
                         <div className = {classes.root}>

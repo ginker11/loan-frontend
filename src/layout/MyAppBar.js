@@ -27,8 +27,9 @@ const MyAppBar = props => {
                 variant="h1"
                 color="inherit"
                 className={classes.title}
-                id="react-admin-title"
-            />
+            >
+                Bridge Loan App
+            </Typography>
         </AppBar>
     );
 };

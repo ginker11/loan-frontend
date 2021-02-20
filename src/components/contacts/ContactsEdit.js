@@ -24,7 +24,7 @@ const ContactsTitle = ({record}) => {
 export const ContactsEdit = props => {
     const classes = useStyles();
     return(
-        <EditGuesser title = {<ContactsTitle />} actions = {<EditActions />} {...props}>
+        <EditGuesser title = {<ContactsTitle />} actions = {<EditActions title = 'Edit - Contact'/>} {...props}>
             <div className = {classes.root}>
                 <Grid container direction="row" alignItems="center" spacing={3}>
                     <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>

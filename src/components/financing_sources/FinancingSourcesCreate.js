@@ -23,7 +23,7 @@ const FinancingSourceTitle = ({record}) => {
 export const FinancingSourcesCreate = props => {
     const classes = useStyles();
     return (
-            <CreateGuesser title = {<FinancingSourceTitle />} actions = {<EditActions />} {...props}>
+            <CreateGuesser  actions = {<EditActions title = {<FinancingSourceTitle />}/>} {...props}>
                 <div className = {classes.root}>
                     <Grid container direction="row" justify="center" alignItems="center" spacing={3}>
                         <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {6}>

@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 export const LienPositionList = props => {
     const classes = useStyles();
     return (
-         <ListGuesser actions = {<ListActions />} title = 'Lien Positions' {...props}>
+         <ListGuesser actions = {<ListActions title = 'Lien Positions'/>}  {...props}>
              <TextField className = {classes.row} source = 'position' />
          </ListGuesser>
     )

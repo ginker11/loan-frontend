@@ -28,14 +28,12 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-const ProjectTitle = ({record}) => {
-    return 'Create a new Project'
-}
+
 
 export const ProjectsCreate = props => {
     const classes = useStyles();
     return(
-        <Create title = {<ProjectTitle />} actions = {<EditActions />} {...props}>
+        <Create  actions = {<EditActions title = 'Create a new Project'/>} {...props}>
             <TabbedForm>
                 <FormTab label = 'General Info'>
                     <>
@@ -86,7 +84,7 @@ export const ProjectsCreate = props => {
                                 <TextInput fullWidth label = 'Eligible Fees' source = 'eligibleFees' validate={[required()]}/>
                             </Grid>
                             <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
-                                <BooleanInput fullWidth label = 'Payment Penalty' source = 'paymentPenalty' validate={[required()]}/>
+                                <BooleanInput fullWidth label = 'Payment Penalty' source = 'paymentPenalty' defaultValue = {true}/>
                             </Grid>
                         </Grid>
                     </div>

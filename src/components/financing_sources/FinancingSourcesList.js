@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 export const FinancingSourcesList = props => {
     const classes = useStyles();
     return (
-         <ListGuesser  className = {classes.headers} actions = {<ListActions />} title = 'Financing Sources' {...props}>
+         <ListGuesser  className = {classes.headers} actions = {<ListActions title = 'Financing Sources'/>}  {...props}>
              <TextField className = {classes.contact} source = 'name' />
          </ListGuesser>
     )

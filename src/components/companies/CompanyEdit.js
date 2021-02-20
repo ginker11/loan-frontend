@@ -24,7 +24,7 @@ export const CompanyEdit = props => {
     const classes = useStyles();
 
     return (
-            <EditGuesser title = {<CompanyTitle />} actions = {<EditActions />} {...props}>
+            <EditGuesser title = {<CompanyTitle />} actions = {<EditActions title = 'Edit - Company' />} {...props}>
                 <div className = {classes.root}>
                     <Grid container direction="row" justify="center" alignItems="center" spacing={3}>
                         <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>

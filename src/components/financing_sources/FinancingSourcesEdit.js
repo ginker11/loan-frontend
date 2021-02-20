@@ -18,12 +18,13 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 const FinancingSourceTitle = ({record}) => {
+    console.log(record.name);
     return 'Edit - ' + record.name
 }
 export const FinancingSourcesEdit = props => {
     const classes = useStyles();
     return (
-            <EditGuesser title = {<FinancingSourceTitle />} actions = {<EditActions />} {...props}>
+            <EditGuesser actions = {<EditActions title = {'Edit - Financing Source'} />} {...props}>
                 <div className = {classes.root}>
                     <Grid container direction="row" justify="center" alignItems="center" spacing={3}>
                         <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {6}>

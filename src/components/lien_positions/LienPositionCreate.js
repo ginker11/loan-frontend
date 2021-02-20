@@ -23,7 +23,7 @@ const LienPositionTitle = ({record}) => {
 export const LienPositionCreate = props => {
     const classes = useStyles();
     return (
-            <CreateGuesser title = {<LienPositionTitle />} actions = {<EditActions />} {...props}>
+            <CreateGuesser  actions = {<EditActions title = {<LienPositionTitle />} />} {...props}>
                 <div className = {classes.root}>
                     <Grid container direction="row" justify="center" alignItems="center" spacing={3}>
                         <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {6}>

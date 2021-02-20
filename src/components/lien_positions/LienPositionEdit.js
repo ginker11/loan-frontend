@@ -18,12 +18,12 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 const LienPositionTitle = ({record}) => {
-    return 'Edit - ' + record.name
+    return 'Edit - ' + record.position;
 }
 export const LienPositionEdit = props => {
     const classes = useStyles();
     return (
-            <EditGuesser title = {<LienPositionTitle />} actions = {<EditActions />} {...props}>
+            <EditGuesser  actions = {<EditActions title = {'Edit - Lien Positon'}/>} {...props}>
                 <div className = {classes.root}>
                     <Grid container direction="row" justify="center" alignItems="center" spacing={3}>
                         <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {6}>

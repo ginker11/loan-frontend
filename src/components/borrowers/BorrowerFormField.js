@@ -1,35 +1,31 @@
-import React from 'react';
+import React, {useState, useRef} from 'react';
 import {
   ReferenceInput,
   AutocompleteInput,
+  SelectInput
 } from 'react-admin';
 import ContactFormField from '../contacts/ContactFormField';
 import CompanyFormField from '../companies/CompanyFormField';
 import ModalCreateButton from '../helpers/ModalCreateButton'; 
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, IconButton } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import ContactsIcon from '@material-ui/icons/Contacts';
+import BusinessIcon from '@material-ui/icons/Business';
 
-const BorrowerFormField = ({ record }) => {
+
+const ContactBorrowerFormField = (props) => {
+  const {isDisabled} = props;
   return (
     <>
-      {/* Empty element wrapper to work around default styling */}
-      <Grid container spacing={2}>
-        <Grid container item xs={12} spacing={2}>
-          <Typography variant="subtitle1" gutterBottom>
-            Select a Contact or Company
-          </Typography>
-        </Grid>
-        <Grid container justify="center" alignItems="center" spacing={0}>
           <Grid item xs={10} sm={10}>
             <ReferenceInput
               source="contact"
               reference="contacts"
               label="Contact"
-            //   format={v => {
-            //     return v instanceof Object ? v['@id'] : v;
-            //   }}
+              allowEmpty
               fullWidth
             >
-              <AutocompleteInput optionText = {contact => `${contact.firstName}` + ' ' + `${contact.lastName}` }  />
+              <SelectInput  optionText = {contact => `${contact.firstName}` + ' ' + `${contact.lastName}` }  />
             </ReferenceInput>
           </Grid>
           <Grid item xs={2} sm={2}>
@@ -38,33 +34,99 @@ const BorrowerFormField = ({ record }) => {
                 dialogFormField="contacts"
                 dialogTitle="Add a Contact"
                 actionTypeCreate
-                >
+            >
                     <ContactFormField />
             </ModalCreateButton>
           </Grid>
-          <Grid item xs={10} sm={10}>
-            <ReferenceInput
-              source="company"
-              reference="companies"
-              label="Company"
-              fullWidth
-            >
-                <AutocompleteInput optionText="name" />
-            </ReferenceInput>
-          </Grid>
-          <Grid item xs={2} sm={2}>
-            <ModalCreateButton
-                dialogResource="companies"
-                dialogFormField="companies"
-                dialogTitle="Add a Company"
-                actionTypeCreate
-                >
-                    <CompanyFormField />
-            </ModalCreateButton>
+    </>
+  )
+}
+
+const CompanyBorrowerFormField = (props) => {
+  const {isDisabled} = props;
+  return(
+    <>
+            <Grid item xs={10} sm={10}>
+              <ReferenceInput
+                source="company"
+                reference="companies"
+                label="Company"
+                fullWidth
+                allowEmpty
+              >
+                  <SelectInput optionText="name" />
+              </ReferenceInput>
+            </Grid>
+            <Grid item xs={2} sm={2}>
+              <ModalCreateButton
+                  dialogResource="companies"
+                  dialogFormField="companies"
+                  dialogTitle="Add a Company"
+                  actionTypeCreate
+                  >
+                      <CompanyFormField />
+              </ModalCreateButton>
+            </Grid>
+    </>
+  )
+}
+
+const useStyles = makeStyles((theme) => ({
+  iconButton: {
+    width: '8rem',
+    height: '8rem',
+    '& svg': {
+      fontSize: '4.5rem'
+    },
+    marginBottom: '2rem'
+  }
+}));
+
+const BorrowerFormField = ({ record }) => {
+  const [option, setOption] = useState(0);
+  const classes = useStyles();
+
+  const handleClick = event => {
+    setOption(event.target.value);
+  }
+  return (
+    <>
+      <Grid  container direction = 'row' justify = 'center' alignItems = 'center' spacing={3}>
+        <Grid item xs = {12}>
+          <Typography variant = 'subtitle1' color = 'textSecondary' style = {{marginBottom: '1rem'}}>
+              Select the type of borrower you wish to create
+         </Typography>
+        </Grid>
+        <Grid item xs = {12} sm = {6}>
+          <Grid container direction = 'column' justify = 'center' alignItems = 'center' spacing = {1}>
+            <Grid item>
+              <Typography variant = 'subtitle1'>Contact</Typography>
+            </Grid>
+            <Grid item>
+              <IconButton color = {(option == 1) ? 'primary' : 'secondary'} value = {1} className = {classes.iconButton} onClick = {handleClick}>
+                <ContactsIcon />
+              </IconButton>
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
+        <Grid item xs = {12} sm = {6}>
+          <Grid container direction = 'column' justify = 'center' alignItems = 'center' spacing = {1}>
+            <Grid item>
+              <Typography variant = 'subtitle1'>Company</Typography>
+            </Grid>
+            <Grid item>
+              <IconButton color = {(option == 2) ? 'primary' : 'secondary'} value = {2}  className = {classes.iconButton} onClick = {handleClick}>
+                <BusinessIcon/>
+              </IconButton>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid container justify="center" alignItems="center" spacing={0}>
+              {(option == 1) ? <ContactBorrowerFormField key = {option} /> : (
+                (option == 2) ? <CompanyBorrowerFormField key = {option} /> : null)}
+        </Grid>
+    </Grid>
     </>
-  );
-};
+  )
+}
 export default BorrowerFormField;

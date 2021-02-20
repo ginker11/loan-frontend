@@ -33,6 +33,15 @@ export const theme = createMuiTheme(
           zIndex: '9999!important'
         }
       },
+      MuiPaper: {
+        elevation1: {
+            boxShadow: 'none',
+        },
+        root: {
+            border: '1px solid #e0e0e3',
+            backgroundClip: 'padding-box',
+        },
+    },
         RaMenuItemLink: {
           root: {
               borderLeft: '3px solid #fff',

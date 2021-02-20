@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 export const ProjectsList = props => {
     const classes = useStyles();
     return (
-            <ListGuesser  className = {classes.headers} actions = {<ListActions />} title = 'Projects' {...props}>
+            <ListGuesser  className = {classes.headers} actions = {<ListActions title = 'Projects'/>}  {...props}>
              <ReferenceField label = 'Operating Company' source = 'operatingCompany' reference = 'companies'>
                  <TextField source = 'name' />
              </ReferenceField>
