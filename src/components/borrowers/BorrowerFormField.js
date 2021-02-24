@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState} from 'react';
 import {
   ReferenceInput,
   AutocompleteInput,
@@ -25,7 +25,7 @@ const ContactBorrowerFormField = (props) => {
               allowEmpty
               fullWidth
             >
-              <SelectInput  optionText = {contact => `${contact.firstName}` + ' ' + `${contact.lastName}` }  />
+              <SelectInput  optionText = {contact => `${contact.firstName}` + ` ` + `${contact.lastName}` }  />
             </ReferenceInput>
           </Grid>
           <Grid item xs={2} sm={2}>
@@ -87,6 +87,7 @@ const BorrowerFormField = ({ record }) => {
   const classes = useStyles();
 
   const handleClick = event => {
+    console.log(event.target.value);
     setOption(event.target.value);
   }
   return (

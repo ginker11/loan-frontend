@@ -1,6 +1,6 @@
 import React from 'react';
 import {CreateGuesser} from "@api-platform/admin";
-import { Create, SimpleForm, TextInput} from 'react-admin';
+import { Create, SimpleForm, TextInput, required} from 'react-admin';
 import {EditActions} from '../actions/EditActions';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';

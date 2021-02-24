@@ -1,13 +1,16 @@
 import React from 'react';
 import {FieldGuesser} from "@api-platform/admin";
 import {TextInput, AutocompleteInput, NumberInput, Datagrid, Edit, TabbedForm, 
-        FormTab, ReferenceInput, ReferenceManyField, DateInput, TextField,
-        NullableBooleanInput} from 'react-admin';
+        FormTab, ReferenceInput, ReferenceManyField, DateInput, DeleteButton,
+        NullableBooleanInput, FunctionField} from 'react-admin';
 import CompanyFormField from '../companies/CompanyFormField';
 import BorrowerEditFormField from '../borrowers/BorrowerEditFormField';
-import CompanyBorrowerFormField from '../borrowers/CompanyBorrowerFormField';
-import ContactBorrowerFormField from '../borrowers/ContactBorrowerFormField';
+// import CompanyBorrowerFormField from '../borrowers/CompanyBorrowerFormField';
+// import ContactBorrowerFormField from '../borrowers/ContactBorrowerFormField';
+import BorrowerFormField from '../borrowers/BorrowerFormField';
+import BorrowerEditPanel from '../borrowers/BorrowerEditPanel';
 import ProjectFinancingSourceFormFields from '../project_financing_sources/ProjectFinancingSourceFormFields';
+import PostPanel from '../project_financing_sources/ProjectFinancingSourcePanel';
 import ModalCreateButton from '../helpers/ModalCreateButton';
 import Divider from '@material-ui/core/Divider';
 import {EditActions} from '../actions/EditActions';
@@ -39,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 const ProjectTitle = ({record}) => {
     return 'Edit - Project'
 }
+
 
 export const ProjectsEdit = props => {
 
@@ -102,19 +106,20 @@ export const ProjectsEdit = props => {
                 </>
             </FormTab>
             <FormTab label={'Financing Sources'} path={'edit_financing'}>
-            <ReferenceManyField label = 'Project Financing Sources' reference="project_financing_sources" target = 'project'>
-                    <Datagrid>
-                        <FieldGuesser source = 'project'/>
-                        <FieldGuesser source = 'financingSource'/>
-                        <FieldGuesser source = 'amount'/>
-                        <FieldGuesser source = 'principalAndInterestPayment'/>
-                        <FieldGuesser source = 'rate'/>
-                        <FieldGuesser source = 'percentage'/>
+            <ReferenceManyField label = 'Project Financing Sources' reference="project_financing_sources" target = 'project'  >
+                    <Datagrid expand={<PostPanel />} >
                         <FieldGuesser source = 'lienPosition'/>
+                        <FieldGuesser source = 'financingSource'/>
+                        <FunctionField label = 'Amount' 
+                            render = {record => `$${parseFloat(record.amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}` } 
+                        />
+                        <FunctionField label = 'Percentage' 
+                            render = {record => record.percentage + '%' } 
+                        />
                         <ModalEditButton
                                 dialogResource="project_financing_sources"
                                 dialogFormField="project_financing_sources"
-                                dialogTitle="Edit Borrower"
+                                dialogTitle="Edit Project Financing Source"
                                 dialogMergeFormValues={{ project: props.id }}
                                 dialogRedirect={`/projects/${encodeURIComponent(
                                 props.id
@@ -122,8 +127,9 @@ export const ProjectsEdit = props => {
                                 dialogAddTextLabel="Edit"
                                 actionTypeEdit
                             >
-                                <ProjectFinancingSourceFormFields projectId = {props.id}/>
-                            </ModalEditButton>
+                                <ProjectFinancingSourceFormFields projectId = {props.id} />
+                        </ModalEditButton>
+                        <DeleteButton redirect = {`/projects/${encodeURIComponent(props.id)}/edit_financing`} />
                     </Datagrid>
                 </ReferenceManyField>
                 <ModalCreateButton
@@ -137,12 +143,12 @@ export const ProjectsEdit = props => {
                     dialogAddTextLabel="Add a Financing Source"
                     actionTypeEdit
                     >
-                        <ProjectFinancingSourceFormFields  projectId = {props.id} />
+                        <ProjectFinancingSourceFormFields  projectId = {props.id}  />
                     </ModalCreateButton>
             </FormTab>
             <FormTab label={'Project Borrowers'} path = {'edit_borrowers'}>
-                <ReferenceManyField label = 'Project Borrowers' reference="borrowers" target = 'project' {...props}>
-                    <Datagrid>
+                <ReferenceManyField label = 'Project Borrowers' reference="borrowers" target = 'project'>
+                    <Datagrid expand = {<BorrowerEditPanel />}>
                         <FieldGuesser source = 'company'/>
                         <FieldGuesser source = 'contact'/> 
                         <FieldGuesser source = 'borrowerCompanyOwnership' />
@@ -157,11 +163,25 @@ export const ProjectsEdit = props => {
                                 dialogAddTextLabel="Edit"
                                 actionTypeEdit
                             >
-                                <BorrowerEditFormField />
+                                <BorrowerEditFormField redirectId = {props.id}/>
                             </ModalEditButton>
+                            <DeleteButton redirect = {`/projects/${encodeURIComponent(props.id)}/edit_borrowers`} />
                     </Datagrid>
                 </ReferenceManyField>
-                <div style = {{width : '40%'}}>
+                <ModalCreateButton
+                                dialogResource="borrowers"
+                                dialogFormField="borrowers"
+                                dialogTitle="Add a Company Borrower"
+                                dialogMergeFormValues={{ project: props.id }}
+                                dialogRedirect={`/projects/${encodeURIComponent(
+                                    props.id
+                                )}/edit_borrowers`}
+                                dialogAddTextLabel="Add a Borrower"
+                                actionTypeEdit
+                                >
+                                    <BorrowerFormField />
+                </ModalCreateButton>
+                {/* <div style = {{width : '40%'}}>
                     <Grid container direction = 'col'>
                         <Grid item xs = {6}>
                             <ModalCreateButton
@@ -194,7 +214,7 @@ export const ProjectsEdit = props => {
                                 </ModalCreateButton>
                         </Grid>
                     </Grid>
-                </div>
+                </div> */}
                 
                     
             </FormTab>

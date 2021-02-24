@@ -60,7 +60,7 @@ export const ProjectsCreate = props => {
                                 </Grid>
                             </Grid>                           
                             <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
-                                <TextInput fullWidth label = 'Street Address' source = 'streetAddress' validate={[required()]} />
+                                <TextInput fullWidth label = 'Project Street Address' source = 'streetAddress' validate={[required()]} />
                             </Grid>
                             <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                                 <TextInput fullWidth label = 'City' source = 'city' validate={[required()]} />

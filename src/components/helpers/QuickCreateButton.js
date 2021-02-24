@@ -39,6 +39,7 @@ function QuickCreateButton({
     setShowDialog(false);
   };
   const handleSubmit = async values => {
+    console.log('Create: ', dialogMergeFormValues);
     create(
       { payload: { data: { ...values, ...dialogMergeFormValues } } },
       {
@@ -51,6 +52,7 @@ function QuickCreateButton({
             refresh();
           } else {
             form.change(dialogFormField, data.id);
+            refresh();
           }
           onChange(data);
         },

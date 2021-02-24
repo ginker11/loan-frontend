@@ -9,12 +9,13 @@ import {
   Loading,
   Error,
   useDataProvider,
-  useInput
+  useInput,
+  required
 } from 'react-admin';
 import { useForm, useFormState } from 'react-final-form';
 import FinancingSourceFormField from '../financing_sources/FinancingSourceFormField';
 import ModalCreateButton from '../helpers/ModalCreateButton'; 
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Divider } from '@material-ui/core';
 
 const ProjectFinancingSourceFormFields = ({ record, projectId }) => {
   const dataProvider = useDataProvider();
@@ -23,7 +24,6 @@ const ProjectFinancingSourceFormFields = ({ record, projectId }) => {
   const [error, setError] = useState();
   const {change} = useForm();
   const { values : { amount }} = useFormState({ subscription: { values: true } });
-
  
 
   useEffect(() => {
@@ -38,25 +38,24 @@ const ProjectFinancingSourceFormFields = ({ record, projectId }) => {
             setError(error);
             setLoading(false);
         })
-}, []);
+});
+
+
 
 useEffect(() => {
-    change('percentage', ((amount / totalFinancingAmount) * 100).toFixed(2));
-  }, [change, amount]);
+  const amountValue = (amount) ? amount : 0;
+  console.log(amountValue)
+  change('percentage', ((amountValue / totalFinancingAmount) * 100).toFixed(2));
+  }, [change, amount, totalFinancingAmount]);
 
-  if (loading) return <Loading />;
-  // if (error) return <Error />;
-
+if (loading) return <Loading />;
+if (error) return <Error />;
   
   return (
     <>
       {/* Empty element wrapper to work around default styling */}
+      <Divider style = {{marginBottom: '1.5rem'}}/>
       <Grid container  justify="center" alignItems="center"  spacing={2}>
-        <Grid container item xs={12} spacing={2}>
-          <Typography variant="subtitle1" gutterBottom>
-            Create a Project Financing Source
-          </Typography>
-        </Grid>
         <Grid container alignItems="center" spacing={1}>
           <Grid item xs = {12}> 
             <Grid container direction = 'row' alignItems="center"  spacing = {0}>
@@ -66,6 +65,7 @@ useEffect(() => {
                     reference="financing_sources"
                     label="Financing Source"
                     fullWidth
+                    validate={[required()]}
                   >
                     <AutocompleteInput optionText = 'name' />
                   </ReferenceInput>
@@ -88,27 +88,28 @@ useEffect(() => {
               reference="lien_positions"
               label="Lien Position"
               fullWidth
+              validate={[required()]}
             >
               <SelectInput optionText = 'position' />
             </ReferenceInput>
           </Grid>
           <Grid item xs={12} sm={6}>
-              <TextInput fullWidth label = 'Amount' source = 'amount' />
+              <TextInput validate={[required()]} fullWidth label = 'Amount' source = 'amount' />
           </Grid>
           <Grid item xs={12} sm={6}>
-              <TextInput fullWidth label = 'Principal and Interest Payment' source = 'principalAndInterestPayment'/>
+              <TextInput validate={[required()]} fullWidth label = 'Principal and Interest Payment' source = 'principalAndInterestPayment'/>
           </Grid>
           <Grid item xs={12} sm={6}>
-              <NumberInput fullWidth label = 'Amortization' source = 'amortization'/>
+              <NumberInput validate={[required()]} fullWidth label = 'Amortization' source = 'amortization'/>
           </Grid>
           <Grid item xs={12} sm={6}>
-              <TextInput fullWidth label = 'Rate' source = 'rate'/>
+              <TextInput validate={[required()]} fullWidth label = 'Rate' source = 'rate'/>
           </Grid>
           <Grid item xs={12} sm={6}>
-              <NumberInput fullWidth label = 'Term' source = 'term'/>
+              <NumberInput validate={[required()]} fullWidth label = 'Term' source = 'term'/>
           </Grid>
           <Grid item xs={12} sm={6}>
-              <TextInput disabled  fullWidth label = 'Percentage' source = 'percentage' />
+              <TextInput disabled fullWidth label = 'Percentage' source = 'percentage' />
           </Grid>
         </Grid>
       </Grid>

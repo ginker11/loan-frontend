@@ -11,7 +11,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import SubMenu from './SubMenu';
 
-const MySideMenu = ({ onMenuClick, toggleSidebar, logout, dense = false }) => {
+const MySideMenu = ({ onMenuClick, toggleSidebar, logout }) => {
     const isXSmall = useMediaQuery(theme => theme.breakpoints.down('xs'));
     const open = useSelector(state => state.admin.ui.sidebarOpen);
     const [state, setState] = useState({
@@ -24,16 +24,16 @@ const MySideMenu = ({ onMenuClick, toggleSidebar, logout, dense = false }) => {
     return (
         <div>
             <MenuItemLink to = '/home' primaryText = 'Home' 
-                          leftIcon = {<DashboardIcon onClick = {onMenuClick} dense={dense}/>}
+                          leftIcon = {<DashboardIcon onClick = {onMenuClick}/>}
                           sidebarIsOpen = {open} />
             <MenuItemLink to = '/projects' primaryText = 'Projects' 
-                          leftIcon = {<AssignmentIcon onClick = {onMenuClick} dense={dense} />}
+                          leftIcon = {<AssignmentIcon onClick = {onMenuClick} />}
                           sidebarIsOpen = {open}/> 
             <MenuItemLink to = '/contacts' primaryText = 'Contacts' 
-                          leftIcon = {<ContactsIcon onClick = {onMenuClick} dense={dense}/>}
+                          leftIcon = {<ContactsIcon onClick = {onMenuClick}/>}
                           sidebarIsOpen = {open} />
              <MenuItemLink to = '/companies' primaryText = 'Companies' 
-                            leftIcon = {<BusinessIcon onClick = {onMenuClick} dense={dense}/>}
+                            leftIcon = {<BusinessIcon onClick = {onMenuClick}/>}
                             sidebarIsOpen = {open}/>
             <SubMenu                 
                 handleToggle={() => handleToggle('menuConfigurations')}
@@ -41,14 +41,14 @@ const MySideMenu = ({ onMenuClick, toggleSidebar, logout, dense = false }) => {
                 sidebarIsOpen={open}
                 name="Configurations"
                 icon={<ChevronRightIcon/>}
-                dense={dense}>
+                >
                 <MenuItemLink to = '/financing_sources' primaryText = 'Financing Sources' 
                             leftIcon = {<MoneyIcon onClick = {onMenuClick} />}
-                            sidebarIsOpen = {open} dense={dense}/>
+                            sidebarIsOpen = {open} />
                 
                 <MenuItemLink to = '/lien_positions' primaryText = 'Lien Positions' 
                             leftIcon = {<FormatListNumberedIcon onClick = {onMenuClick} /> }
-                            sidebarIsOpen = {open} dense={dense}/>
+                            sidebarIsOpen = {open} />
             </SubMenu>
             
             {isXSmall && logout}

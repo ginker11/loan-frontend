@@ -25,6 +25,7 @@ export const theme = createMuiTheme(
             "& > th ": {
             color: 'black',
             fontWeight: 'bold',
+            fontSize: '1rem'
             }
         }
       },

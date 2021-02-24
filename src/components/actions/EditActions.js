@@ -1,5 +1,5 @@
 import React from 'react';
-import { SaveButton, TopToolbar, ListButton } from 'react-admin';
+import { TopToolbar, ListButton } from 'react-admin';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';

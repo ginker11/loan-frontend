@@ -1,23 +1,18 @@
 import React from 'react';
-import { TextInput } from 'react-admin';
-import { Grid, Typography } from '@material-ui/core';
+import { TextInput, required } from 'react-admin';
+import { Grid } from '@material-ui/core';
 
 const CompanyFormField = ({ record }) => {
   return (
     <>
       {/* Empty element wrapper to work around default styling */}
       <Grid container spacing={2}>
-        <Grid container item xs={12} spacing={2}>
-          <Typography variant="subtitle1" gutterBottom>
-            Create a Contact
-          </Typography>
-        </Grid>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
-            <TextInput fullWidth  label = 'First Name' source = 'firstName' id = 'firstName2' />                    
+            <TextInput fullWidth  label = 'First Name' source = 'firstName' validate={[required()]} id = 'firstName2' />                    
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextInput fullWidth  label = 'Last Name' source = 'lastName' id = 'lastName2' />                    
+            <TextInput fullWidth  label = 'Last Name' source = 'lastName' validate={[required()]} id = 'lastName2' />                    
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextInput fullWidth  label = 'Email' source = 'email' id = 'email2' />                    
