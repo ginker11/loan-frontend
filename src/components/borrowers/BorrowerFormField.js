@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {
   ReferenceInput,
   AutocompleteInput,
-  SelectInput
+  SelectInput, required
 } from 'react-admin';
 import ContactFormField from '../contacts/ContactFormField';
 import CompanyFormField from '../companies/CompanyFormField';
@@ -14,7 +14,6 @@ import BusinessIcon from '@material-ui/icons/Business';
 
 
 const ContactBorrowerFormField = (props) => {
-  const {isDisabled} = props;
   return (
     <>
           <Grid item xs={10} sm={10}>
@@ -25,13 +24,13 @@ const ContactBorrowerFormField = (props) => {
               allowEmpty
               fullWidth
             >
-              <SelectInput  optionText = {contact => `${contact.firstName}` + ` ` + `${contact.lastName}` }  />
+              <SelectInput  optionText = {contact => `${contact.firstName}` + ` ` + `${contact.lastName}` }  validate={[required()]}/>
             </ReferenceInput>
           </Grid>
           <Grid item xs={2} sm={2}>
             <ModalCreateButton
                 dialogResource="contacts"
-                dialogFormField="contacts"
+                dialogFormField="contact"
                 dialogTitle="Add a Contact"
                 actionTypeCreate
             >
@@ -54,13 +53,13 @@ const CompanyBorrowerFormField = (props) => {
                 fullWidth
                 allowEmpty
               >
-                  <SelectInput optionText="name" />
+                  <SelectInput optionText="name" validate={[required()]}/>
               </ReferenceInput>
             </Grid>
             <Grid item xs={2} sm={2}>
               <ModalCreateButton
                   dialogResource="companies"
-                  dialogFormField="companies"
+                  dialogFormField="company"
                   dialogTitle="Add a Company"
                   actionTypeCreate
                   >

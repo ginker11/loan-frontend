@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, ReferenceInput, SelectInput } from 'react-admin';
+import { TextInput, ReferenceInput, SelectInput, required } from 'react-admin';
 import { Grid, Typography } from '@material-ui/core';
 import ModalCreateButton from '../helpers/ModalCreateButton';
 import ContactFormField from '../contacts/ContactFormField';
@@ -17,13 +17,13 @@ const BorrowerCompanyOwnershipFormField = ({ record }) => {
                 allowEmpty
                 fullWidth
                 >
-                <SelectInput  optionText = {contact => `${contact.firstName}` + ` ` + `${contact.lastName}` }  />
+                <SelectInput  optionText = {contact => `${contact.firstName}` + ` ` + `${contact.lastName}` } validate={[required()]} />
                 </ReferenceInput>
             </Grid>
             <Grid item xs={2} sm={1}>
                 <ModalCreateButton
                     dialogResource="contacts"
-                    dialogFormField="contacts"
+                    dialogFormField="contact"
                     dialogTitle="Add a Contact"
                     actionTypeCreate
                 >
@@ -31,7 +31,7 @@ const BorrowerCompanyOwnershipFormField = ({ record }) => {
                 </ModalCreateButton>
             </Grid>
             <Grid item xs = {11} sm = {11}>
-                <TextInput fullWidth label = 'Ownership Percentage' source = 'ownershipPercent' />
+                <TextInput fullWidth label = 'Ownership Percentage' source = 'ownershipPercent' validate={[required()]} />
             </Grid>
         </Grid>
       </Grid>

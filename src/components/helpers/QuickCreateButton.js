@@ -52,7 +52,7 @@ function QuickCreateButton({
             refresh();
           } else {
             form.change(dialogFormField, data.id);
-            refresh();
+            // refresh();
           }
           onChange(data);
         },

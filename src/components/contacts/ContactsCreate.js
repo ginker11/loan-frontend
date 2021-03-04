@@ -28,10 +28,10 @@ export const ContactsCreate = props => {
                 <div className = {classes.root}>
                     <Grid container direction="row" alignItems="center" spacing={3}>
                         <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
-                            <TextInput fullWidth  label = 'First Name' source = 'firstName' />
+                            <TextInput fullWidth  label = 'First Name' source = 'firstName' validate={[required()]} />
                         </Grid>
                         <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
-                            <TextInput fullWidth  label = 'Last Name' source = 'lastName' />
+                            <TextInput fullWidth  label = 'Last Name' source = 'lastName' validate={[required()]}/>
                         </Grid>
                         <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                             <TextInput fullWidth  label = 'Email Address' source = 'email' />

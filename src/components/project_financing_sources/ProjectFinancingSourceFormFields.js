@@ -44,7 +44,6 @@ const ProjectFinancingSourceFormFields = ({ record, projectId }) => {
 
 useEffect(() => {
   const amountValue = (amount) ? amount : 0;
-  console.log(amountValue)
   change('percentage', ((amountValue / totalFinancingAmount) * 100).toFixed(2));
   }, [change, amount, totalFinancingAmount]);
 
@@ -73,7 +72,7 @@ if (error) return <Error />;
               <Grid item xs = {1} >
                   <ModalCreateButton
                     dialogResource="financing_sources"
-                    dialogFormField="financing_sources"
+                    dialogFormField="financingSource"
                     dialogTitle="Add a Financing Source"
                     actionTypeCreate
                   >

@@ -15,7 +15,7 @@ const CompanyFormField = ({ record }) => {
             <TextInput fullWidth  label = 'Last Name' source = 'lastName' validate={[required()]} id = 'lastName2' />                    
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextInput fullWidth  label = 'Email' source = 'email' id = 'email2' />                    
+            <TextInput fullWidth  label = 'Email' source = 'email' id = 'email2' validate={[required()]}/>                    
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextInput fullWidth label = 'Street Address' source = 'streetAddress' id = 'streetAddress2' />             

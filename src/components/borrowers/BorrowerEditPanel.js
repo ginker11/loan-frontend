@@ -18,8 +18,7 @@ const FormAction = ({ basePath, data, redirect, ...props }) => {
     )
 }
 const BorrowerEditPanel = props => {
-    const {record} = props;
-
+    const {record, redirectId} = props;
     return (
             <Edit 
                     {...props}
@@ -41,7 +40,7 @@ const BorrowerEditPanel = props => {
                                 label="Contact"
                                 style = {{width: '60%'}}
                                 >
-                                <SelectInput  optionText = {contact => `${contact.firstName}` + ` ` + `${contact.lastName}` }/>
+                                <SelectInput  optionText = {contact => `${contact.firstName}` + ` ` + `${contact.lastName}` } defaultValue = {record.contact}/>
                             </ReferenceInput>
                    
                     </SimpleForm>
@@ -58,25 +57,25 @@ const BorrowerEditPanel = props => {
                             label="Company"
                             style = {{width: '60%'}}
                             >
-                            <SelectInput  optionText = 'name'  autoSave/>
+                            <SelectInput  optionText = 'name'  autoSave defaultValue={record.company['name']}/>
                         </ReferenceInput>
                        <Divider style = {{width: '60%', margin: '0.8rem'}}/>
-                        <ReferenceManyField label = 'Borrower Company Ownership Percentages' reference = 'borrower_company_ownerships' target = 'borrowers'>
+                        <ReferenceManyField label = 'Borrower Company Ownership Percentages' reference = 'borrower_company_ownerships' target = 'borrower'>
                             <Datagrid >
                             <FieldGuesser source = 'contact' />
                             <FieldGuesser source = 'ownershipPercent' />
-                            <DeleteButton />
+                            <DeleteButton redirect={false}/>
                             </Datagrid>
                         </ReferenceManyField>
                         <ModalCreateButton
                                         dialogResource="borrower_company_ownerships"
-                                        dialogFormField="borrower_company_ownerships"
+                                        dialogFormField="borrowerCompanyOwnership"
                                         dialogTitle="Add a Company Borrower Ownership"
                                         dialogMergeFormValues={{ borrower: record.id }}
-                                        // dialogRedirect={`/projects/${encodeURIComponent(
-                                        //     record.id
-                                        // )}/edit_borrowers`}
-                                        dialogAddTextLabel="Add a Company Borrower"
+                                        dialogRedirect={`/projects/${encodeURIComponent(
+                                            redirectId
+                                        )}/edit_borrowers`}
+                                        dialogAddTextLabel="Add a Company Borrower Ownership Percentage"
                                         actionTypeCreate
                                         >
                                             <BorrowerCompanyOwnershipFormField />

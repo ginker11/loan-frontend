@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput } from 'react-admin';
+import { TextInput, required } from 'react-admin';
 import { Grid, Typography } from '@material-ui/core';
 
 const FinancingSourceFormField = ({ record }) => {
@@ -14,7 +14,7 @@ const FinancingSourceFormField = ({ record }) => {
         </Grid>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
-            <TextInput fullWidth  label = 'Financing Source' source = 'name' id = 'financingSource2' />                    
+            <TextInput fullWidth  label = 'Financing Source' source = 'name' id = 'financingSource2' validate={[required()]}/>                    
           </Grid>
         </Grid>
       </Grid>

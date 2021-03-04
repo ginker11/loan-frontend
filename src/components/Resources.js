@@ -7,6 +7,9 @@ import projectResource from './projects/Projects';
 import borrowerResource from './borrowers/Borrower';
 import projectFinancingSourceResource from './project_financing_sources/ProjectFinancingSources';
 import borrowerCompanyOwnershipResource from './borrower_company_ownership/BorrowerCompanyOwnership';
+import projectOperatingCompanyOwnershipResource from './project_operating_company_ownership/ProjectOperatingCompanyOwnerships';
+import guarantorResource from './guarantors/Guarantors';
+import debtServiceRatioResource from './debtServiceRatio/DebtServiceRatio';
 export default [
     companyResource,
     contactResource,
@@ -16,4 +19,7 @@ export default [
     borrowerResource,
     projectFinancingSourceResource,
     borrowerCompanyOwnershipResource,
+    projectOperatingCompanyOwnershipResource,
+    guarantorResource,
+    debtServiceRatioResource
 ];

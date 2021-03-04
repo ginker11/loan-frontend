@@ -42,4 +42,4 @@ const getHeaders = () => localStorage.getItem("token") ? {
       }
   };
   
-  export default baseHydraDataProvider(entrypoint, fetchHydra, apiDocumentationParser);
+  export default baseHydraDataProvider(entrypoint, fetchHydra, apiDocumentationParser, true);

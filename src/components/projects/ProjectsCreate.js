@@ -50,7 +50,7 @@ export const ProjectsCreate = props => {
                                     <Grid item className = {classes.addButton}>
                                     <ModalCreateButton
                                         dialogResource="companies"
-                                        dialogFormField="companies"
+                                        dialogFormField="operatingCompany"
                                         dialogTitle="Add a Company"
                                         actionTypeCreate
                                         >
