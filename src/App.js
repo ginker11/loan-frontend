@@ -1,8 +1,16 @@
-import React from "react";
+import * as React from "react";
 import { HydraAdmin } from "@api-platform/admin";
 
-// Replace with your own API entrypoint
-// For instance if https://example.com/api/books is the path to the collection of book resources, then the entrypoint is https://example.com/api
+import authProvider from "./components/authProvider";
+import MyLayout from './layout/MyLayout';
+import DataProvider from './components/DataProvider.js'
+import Resources from './components/Resources';
+
+const entrypoint = process.env.REACT_APP_API_ENTRYPOINT;
+
 export default () => (
-  <HydraAdmin entrypoint="https://bridge-loan-react.local:8889/api" />
+    <HydraAdmin entrypoint={entrypoint} layout={MyLayout}  dataProvider={DataProvider} // authProvider = {authProvider} 
+    >
+        {Resources}
+    </HydraAdmin>
 );
