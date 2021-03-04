@@ -2,13 +2,14 @@ import * as React from "react";
 import { HydraAdmin, hydraDataProvider as baseHydraDataProvider, fetchHydra as baseFetchHydra, useIntrospection, ResourceGuesser } from "@api-platform/admin";
 import parseHydraDocumentation from "@api-platform/api-doc-parser/lib/hydra/parseHydraDocumentation";
 import { Route, Redirect } from 'react-router-dom';
-import {Resource} from 'react-admin';
+
+// import {Resource} from 'react-admin';
 
 import authProvider from "./authProvider";
 import MyLayout from './layout/MyLayout';
 
 // Contacts
-// import {Contacts} from './components/contacts/Contacts';
+// import {Contact} from './components/contacts/Contact';
 import {ContactsList} from './components/contacts/ContactsList';
 import {ContactsEdit} from './components/contacts/ContactsEdit';
 import {ContactsCreate} from './components/contacts/ContactsCreate';
@@ -33,6 +34,12 @@ import {LienPositionEdit} from './components/lien_positions/LienPositionEdit';
 import {ProjectsList} from './components/projects/ProjectsList';
 import {ProjectsCreate} from './components/projects/ProjectsCreate';
 
+// Users
+// import {Users} from './components/users/Users';
+import {UserList} from './components/users/UserList';
+import {UserCreate} from './components/users/UserCreate';
+import {UserEdit} from './components/users/UserEdit';
+
 
 const getHeaders = () => localStorage.getItem("token") ? {
   Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -43,15 +50,6 @@ const entrypoint = process.env.REACT_APP_API_ENTRYPOINT;
 const fetchHydra = (url, options = {}) => baseFetchHydra(url, { ...options, 
                                                         headers: getHeaders
                                                     });
-
-const RedirectToLogin = () => {
-    const introspect = useIntrospection();
-    if (localStorage.getItem("token")) {
-        introspect();
-        return <></>;
-    }
-    return <Redirect to="/login" />;
-};
 
 const apiDocumentationParser = async (entrypoint) => {
     try {
@@ -74,23 +72,38 @@ const apiDocumentationParser = async (entrypoint) => {
     }
 };
 
+const RedirectToLogin = () => {
+    const introspect = useIntrospection();
+    if (localStorage.getItem("token")) {
+        introspect();
+        return <></>;
+    }
+    return <Redirect to="/login" />;
+};
+
 const dataProvider = baseHydraDataProvider(entrypoint, fetchHydra, apiDocumentationParser);
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default () => (
-    <HydraAdmin entrypoint={entrypoint}
-        layout={MyLayout} 
-        dataProvider={dataProvider}
-        // authProvider = {authProvider}
+    <HydraAdmin
+        entrypoint={entrypoint}
+        layout={MyLayout}
+        dataProvider = {dataProvider}
+        authProvider = {authProvider}
     >
-        <ResourceGuesser name = 'contacts' list = {ContactsList} show = {false} 
+        <ResourceGuesser name = 'contacts' list = {ContactsList} show = {false}
                 edit = {ContactsEdit} create = {ContactsCreate} />
         <ResourceGuesser name = 'companies' list = {CompanyList} show = {false}
             edit = {CompanyEdit} create = {CompanyCreate}/>
         <ResourceGuesser name = 'projects' list = {ProjectsList}
-            create = {ProjectsCreate} /> 
-        <ResourceGuesser name = 'financing_sources' list = {FinancingSourcesList} 
+            create = {ProjectsCreate} />
+        <ResourceGuesser name = 'financing_sources' list = {FinancingSourcesList}
             show = {false} edit = {FinancingSourcesEdit} create = {FinancingSourcesCreate}/>
         <ResourceGuesser name = 'lien_positions' list = {LienPositionList}
                 show = {false} edit = {LienPositionEdit} create = {LienPositionCreate}/>
+        <ResourceGuesser name = 'users' list = {UserList} show = {false}
+                edit = {UserEdit} create = {UserCreate} />
+        {/*<ResourceGuesser name = 'user_dashboard' list = {UserDashboard} />*/}
     </HydraAdmin>
 );
+

@@ -1,51 +1,93 @@
-import jwtDecode from "jwt-decode";
+const entrypoint = process.env.REACT_APP_API_ENTRYPOINT
+const authenticationTokenUri = `${entrypoint.replace('/api','')}/authentication_token`;
 
+const parseJwt = (token) => {
+  try {
+    return JSON.parse(atob(token.split('.')[1]));
+  } catch (e) {
+    return null;
+  }
+};
+
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   login: ({ username, password }) => {
-    const request = new Request(
-      `${process.env.REACT_APP_API_ENTRYPOINT}/authentication_token`,
-      {
-        method: "POST",
-        body: JSON.stringify({ email: username, password }),
-        headers: new Headers({ "Content-Type": "application/json" }),
-      }
-    );
-    return fetch(request)
-      .then((response) => {
-        if (response.status < 200 || response.status >= 300) {
-          throw new Error(response.statusText);
-        }
-        return response.json();
-      })
-      .then(({ token }) => {
-        localStorage.setItem("token", token);
-      });
+
+    const request = new Request(authenticationTokenUri, {
+      method: 'POST',
+      body: JSON.stringify({ email: username, password }),
+      headers: new Headers({ 'Content-Type': 'application/json' })
+    });
+    return fetch ( request )
+        .then(response => {
+          if (response.status < 200 || response.status >= 300) {
+            throw new Error(response.statusText);
+          }
+          return response.json();
+        })
+        .then(({token}) => {
+          // const decodedToken = parseJwt(token);
+          localStorage.setItem('token', token);
+          // localStorage.setItem('permissions', decodedToken.permissions);
+        })
+        .catch(({error}) => {
+          throw new Error(error)
+        });
   },
   logout: () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
+    // localStorage.removeItem('raColumnsConfig');
+    // window.location.reload();
     return Promise.resolve();
   },
+  checkError: (error) => {
+    const status = error.status;
+    if (status === 401 || status === 403) {
+      localStorage.removeItem('auth');
+      return Promise.reject();
+    }
+    // other error code (404, 500, etc): no need to log out
+    return Promise.resolve();
+  },
+
   checkAuth: () => {
-    try {
-      if (
-        !localStorage.getItem("token") ||
-        new Date().getTime() / 1000 >
-          jwtDecode(localStorage.getItem("token"))?.exp
-      ) {
-        return Promise.reject();
-      }
-      return Promise.resolve();
-    } catch (e) {
-      // override possible jwtDecode error
-      return Promise.reject();
-    }
+    return localStorage.getItem('token') ? Promise.resolve() : Promise.reject();
   },
-  checkError: (err) => {
-    if ([401, 403].includes(err?.status || err?.response?.status)) {
-      localStorage.removeItem("token");
-      return Promise.reject();
-    }
-    return Promise.resolve();
-  },
-  getPermissions: () => Promise.resolve(),
+  getPermissions: () => {
+    const token = localStorage.getItem('token');
+    const decodedToken = parseJwt(token);
+
+    const role = decodedToken.roles;
+    return role ? Promise.resolve(role) : Promise.reject();
+  }
 };
+
+export function getEmail() {
+  if (localStorage.getItem('token')) {
+    const token = localStorage.getItem('token');
+    const decodedToken = parseJwt(token);
+    return decodedToken.email;
+  }
+}
+
+export function isTokenExpired(token) {
+  try {
+    const decoded = parseJwt(token);
+    if (decoded.exp < Date.now() / 1000) {
+      // Logging out
+      localStorage.removeItem('token');
+      return true;
+    } else {
+      return false;
+    }
+  } catch (err) {
+    return false;
+  }
+}
+
+export function isLoggedIn() {
+  const token = localStorage.getItem('token');
+  return !!token && !isTokenExpired(token);
+}
+
+

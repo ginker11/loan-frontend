@@ -38,7 +38,7 @@ const ProjectTitle = ({record}) => {
 //         </CreateGuesser>
 //     )
 //     }
-}
+// }
 export const ProjectsCreate = props => {
     const [companies, setCompanies] = useState([]);
     const dataProvider = useDataProvider();
