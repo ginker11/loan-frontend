@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import AccordionDetails from '@material-ui/core/AccordionActions';
 
 ReactDOM.render(
 
