@@ -1,5 +1,6 @@
 const entrypoint = process.env.REACT_APP_API_ENTRYPOINT
-const authenticationTokenUri = `${entrypoint.replace('/api','')}/authentication_token`;
+const authTokenUri = `${entrypoint}/authentication_token`;
+const authenticationTokenUri = `${authTokenUri.replace('/api/','/')}`;
 
 const parseJwt = (token) => {
   try {
