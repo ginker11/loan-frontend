@@ -8,8 +8,9 @@ import Resources from './components/Resources';
 
 const entrypoint = process.env.REACT_APP_API_ENTRYPOINT;
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default () => (
-    <HydraAdmin entrypoint={entrypoint} layout={MyLayout}  dataProvider={DataProvider} // authProvider = {authProvider} 
+    <HydraAdmin entrypoint={entrypoint} layout={MyLayout}  dataProvider={DataProvider}  authProvider = {authProvider}
     >
         {Resources}
     </HydraAdmin>
