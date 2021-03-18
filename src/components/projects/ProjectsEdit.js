@@ -111,6 +111,7 @@ export const ProjectsEdit = props => {
                 </FormTab>
                 <FormTab label={'Financing Sources'} path={'edit_financing'}>
                 <ReferenceManyField label = 'Project Financing Sources' reference="project_financing_sources" target = 'project'  >
+                    <>
                         <Datagrid expand={<PostPanel />}>
                             <TextField source = 'lienPosition.position' label = 'Lien Position'/>
                             <TextField source = 'financingSource.name' label = 'Financing Source'/>
@@ -135,21 +136,22 @@ export const ProjectsEdit = props => {
                             </ModalEditButton>
                             <DeleteButton redirect = {`/projects/${encodeURIComponent(props.id)}/edit_financing`} />
                         </Datagrid>
-                    </ReferenceManyField>
-                    <ModalCreateButton
-                        dialogResource="project_financing_sources"
-                        dialogFormField="projectFinancingSources"
-                        dialogTitle="Add a Financing Source"
-                        dialogMergeFormValues={{ project: props.id }}
-                        dialogRedirect={`/projects/${encodeURIComponent(
-                            props.id
-                        )}/edit_financing`}
-                        dialogAddTextLabel="Add a Financing Source"
-                        actionTypeEdit
+                        <ModalCreateButton
+                            dialogResource="project_financing_sources"
+                            dialogFormField="projectFinancingSources"
+                            dialogTitle="Add a Financing Source"
+                            dialogMergeFormValues={{ project: props.id }}
+                            dialogRedirect={`/projects/${encodeURIComponent(
+                                props.id
+                            )}/edit_financing`}
+                            dialogAddTextLabel="Add a Financing Source"
+                            actionTypeEdit
                         >
-                        <ProjectFinancingSourceFormFields  projectId = {props.id}  />
+                            <ProjectFinancingSourceFormFields  projectId = {props.id}  />
                         </ModalCreateButton>
-                        <ProjectFinancingSourceSummary projectId= {props.id}/>
+                        <ProjectFinancingSourceSummary projectId = {props.id}/>
+                    </>
+                </ReferenceManyField>
                 </FormTab>
                 <FormTab label={'O.C Owner(s)'} path = {'edit_oc_owners'}>
                         <ReferenceManyField label = 'Project Operating Company Ownership Percentages' reference = 'project_operating_company_ownerships' target = 'project'>
