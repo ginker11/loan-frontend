@@ -1,7 +1,7 @@
 import React, {dispatch} from 'react';
 import { SelectInput,  Datagrid, Edit, SimpleForm, 
     ReferenceInput, ReferenceManyField,  DeleteButton,
-    TopToolbar, SaveButton, TOGGLE_LIST_ITEM_EXPAND} from 'react-admin';
+    TopToolbar, SaveButton, TOGGLE_LIST_ITEM_EXPAND, TextField} from 'react-admin';
 import { makeStyles } from '@material-ui/core/styles';
 import FieldGuesser from '@api-platform/admin/lib/FieldGuesser';
 import { Grid, Typography, Divider } from '@material-ui/core';
@@ -62,7 +62,7 @@ const BorrowerEditPanel = props => {
                        <Divider style = {{width: '60%', margin: '0.8rem'}}/>
                         <ReferenceManyField label = 'Borrower Company Ownership Percentages' reference = 'borrower_company_ownerships' target = 'borrower'>
                             <Datagrid >
-                            <FieldGuesser source = 'contact' />
+                            <TextField source = 'contact.name' label="Contact" />
                             <FieldGuesser source = 'ownershipPercent' />
                             <DeleteButton redirect={false}/>
                             </Datagrid>
