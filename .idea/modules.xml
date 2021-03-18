@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/bridge-loan-react.iml" filepath="$PROJECT_DIR$/.idea/bridge-loan-react.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../bridge-loan-api/.idea/my_project_name.iml" filepath="$PROJECT_DIR$/../bridge-loan-api/.idea/my_project_name.iml" />
     </modules>
   </component>
 </project>
