@@ -38,7 +38,7 @@ const ProjectFinancingSourceFormFields = ({ record, projectId }) => {
             setError(error);
             setLoading(false);
         })
-});
+  },[setLoading]);
 
 
 
