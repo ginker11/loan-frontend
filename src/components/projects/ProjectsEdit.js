@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {FieldGuesser} from "@api-platform/admin";
 import {TextInput, AutocompleteInput, NumberInput, Datagrid, Edit, TabbedForm, 
-        FormTab, ReferenceInput, ReferenceManyField, DateInput, DeleteButton,
+        FormTab, ReferenceInput, ReferenceManyField, DateInput, BooleanInput, DeleteButton,
         NullableBooleanInput, FunctionField, TextField, } from 'react-admin';
 import CompanyFormField from '../companies/CompanyFormField';
 import BorrowerEditFormField from '../borrowers/BorrowerEditFormField';
@@ -57,7 +57,7 @@ export const ProjectsEdit = props => {
                 <FormTab label={'General Info'}>
                     <>
                         <div className = {classes.root}>
-                            <Grid container direction="row" justify="center" alignItems="center" spacing={6}>
+                            <Grid container direction="row" alignItems="center" spacing={6}>
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                                     <Grid container direction = 'row' alignItems="center" spacing = {0}>
                                         <Grid item className = {classes.nestedGridItem}>
@@ -101,6 +101,9 @@ export const ProjectsEdit = props => {
                                 </Grid>
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                                     <TextInput fullWidth label = 'Eligible Fees' source = 'eligibleFees' />
+                                </Grid>
+                                <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
+                                    <BooleanInput fullWidth label = 'Payment Penalty' source = 'paymentPenalty' />
                                 </Grid>
                             </Grid>
                         </div>
