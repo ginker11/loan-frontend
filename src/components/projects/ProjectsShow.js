@@ -3,6 +3,7 @@ import { SimpleShowLayout, Show } from 'react-admin';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, TableContainer, Table, TableCell, TableHead, TableRow, TableBody, Paper } from '@material-ui/core';
 import { getUsername } from '../authProvider';
+import { currencyFormat } from "../../util";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -39,10 +40,6 @@ const ProjectShowInfo = ({ record }) => {
         totalFinancingAmount += parseFloat(source['amount']);
         totalMonthlyPAndI += parseFloat(source['principalAndInterestPayment']);
     });
-
-    let formattedTotalFinancingAmount = totalFinancingAmount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-    let formattedTotalMonthlyPAndI = totalMonthlyPAndI.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-    let formattedTotalYearlyPAndI = (totalMonthlyPAndI * 12).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 
     return(
         <>
@@ -86,10 +83,10 @@ const ProjectShowInfo = ({ record }) => {
                                 <TableCell component="th" scope="row">
                                     {row.financingSource.name}
                                 </TableCell>
-                                <TableCell align="right">{row.amount}</TableCell>
+                                <TableCell align="right">{currencyFormat(row.amount)}</TableCell>
                                 <TableCell align="right">{row.term}</TableCell>
                                 <TableCell align="right">{row.percentage}</TableCell>
-                                <TableCell align="right">{row.principalAndInterestPayment}</TableCell>
+                                <TableCell align="right">{currencyFormat(row.principalAndInterestPayment)}</TableCell>
                                 <TableCell align="right">{row.amortization}</TableCell>
                                 <TableCell align="right">{row.rate}</TableCell>
                                 <TableCell align="right">{row.lienPosition.position}</TableCell>
@@ -97,11 +94,11 @@ const ProjectShowInfo = ({ record }) => {
                         ))}
                         <tr>
                             <TableCell className={classes.cellbg}><b>Total Financing:</b></TableCell>
-                            <TableCell align="right"><b>${formattedTotalFinancingAmount}</b></TableCell>
+                            <TableCell align="right"><b>{currencyFormat(totalFinancingAmount)}</b></TableCell>
                             <TableCell align="right" className={classes.cellbg} colSpan={2}><b>Total Monthly P&I Payment</b></TableCell>
-                            <TableCell align="right"><b>${formattedTotalMonthlyPAndI}</b></TableCell>
+                            <TableCell align="right"><b>{currencyFormat(totalMonthlyPAndI)}</b></TableCell>
                             <TableCell align="right" className={classes.cellbg} colSpan={2}><b>Total Annualized Payments</b></TableCell>
-                            <TableCell align="right"><b>${formattedTotalYearlyPAndI }</b></TableCell>
+                            <TableCell align="right"><b>{currencyFormat(totalMonthlyPAndI * 12)}</b></TableCell>
                         </tr>
                         <tr>
                             <TableCell><b>Prepayment Penalty</b></TableCell>

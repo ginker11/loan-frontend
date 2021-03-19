@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Loading, Error, useQuery, useListContext} from 'react-admin';
 import { Grid, Typography, Card, Divider, CardContent } from '@material-ui/core';
-
+import { currencyFormat } from "../../util";
 
 
 const ProjectFinancingSourceSummary = (props) => {
@@ -23,9 +23,9 @@ const ProjectFinancingSourceSummary = (props) => {
             totalMonthlyPAndI += parseFloat(data[source]['principalAndInterestPayment']);
         })
 
-        setLocalTotalFinancingAmount(totalFinancingAmount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
-        setLocalTotalMonthlyPAndI(totalMonthlyPAndI.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
-        setLocalTotalYearlyPAndI((totalMonthlyPAndI * 12).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+        setLocalTotalFinancingAmount(currencyFormat(totalFinancingAmount));
+        setLocalTotalMonthlyPAndI(currencyFormat(totalMonthlyPAndI));
+        setLocalTotalYearlyPAndI(currencyFormat(totalMonthlyPAndI * 12));
     }, [data]);
 
     //If there's no data, return an empty component
