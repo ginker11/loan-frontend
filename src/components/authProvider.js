@@ -1,3 +1,5 @@
+import decodeJwt from 'jwt-decode';
+
 const entrypoint = process.env.REACT_APP_API_ENTRYPOINT
 const authTokenUri = `${entrypoint}/authentication_token`;
 const authenticationTokenUri = `${authTokenUri.replace('/api/','/')}`;
@@ -69,6 +71,14 @@ export function getEmail() {
     const decodedToken = parseJwt(token);
     return decodedToken.email;
   }
+}
+
+export function getUsername() {
+    if (localStorage.getItem('token')) {
+        const token = localStorage.getItem('token');
+        const decodedToken = decodeJwt(token);
+        return decodedToken.username;
+    }
 }
 
 export function isTokenExpired(token) {
