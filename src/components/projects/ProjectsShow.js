@@ -44,7 +44,7 @@ const ProjectShowInfo = ({ record }) => {
     return(
         <>
             {console.log(record)}
-            <h1>Create New Bridge Loan Approval Form</h1>
+            <h1>Credit Memo Summary</h1>
 
             {/*<b>Date: {new Date().toDateString() }</b>*/}
             <b>Credit Memo Summary: {record.operatingCompany.name}</b>
@@ -65,7 +65,7 @@ const ProjectShowInfo = ({ record }) => {
 
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
-                    <TableHead>
+                    <TableHead className={classes.cellbg}>
                         <TableRow>
                             <TableCell>Source</TableCell>
                             <TableCell align="right">Amount</TableCell>
@@ -85,10 +85,10 @@ const ProjectShowInfo = ({ record }) => {
                                 </TableCell>
                                 <TableCell align="right">{currencyFormat(row.amount)}</TableCell>
                                 <TableCell align="right">{row.term}</TableCell>
-                                <TableCell align="right">{row.percentage}</TableCell>
+                                <TableCell align="right">{row.percentage}%</TableCell>
                                 <TableCell align="right">{currencyFormat(row.principalAndInterestPayment)}</TableCell>
                                 <TableCell align="right">{row.amortization}</TableCell>
-                                <TableCell align="right">{row.rate}</TableCell>
+                                <TableCell align="right">{row.rate}%</TableCell>
                                 <TableCell align="right">{row.lienPosition.position}</TableCell>
                             </TableRow>
                         ))}
