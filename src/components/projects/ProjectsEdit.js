@@ -110,6 +110,16 @@ export const ProjectsEdit = props => {
                     </>
                 </FormTab>
                 <FormTab label={'Financing Sources'} path={'edit_financing'}>
+                <ReferenceInput source='interimLender'
+                                reference='financing_sources'
+                                label='Interim Lender'
+                                filterToQuery={(searchText) => ({ title: searchText })}
+                                format={v => {
+                                    return v instanceof Object ? v['@id'] : v;
+                                }}
+                >
+                    <AutocompleteInput fullWidth optionText='name'/>
+                </ReferenceInput>
                 <ReferenceManyField label = 'Project Financing Sources' reference="project_financing_sources" target = 'project'  >
                     <>
                         <Datagrid expand={<PostPanel />}>
