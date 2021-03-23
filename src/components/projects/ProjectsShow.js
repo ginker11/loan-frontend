@@ -43,6 +43,12 @@ const ProjectShowInfo = ({ record }) => {
 
     return(
         <>
+            <button
+                onClick={event => exportPdfProjectReport(record, event)}
+                className="btn btn-info btn-yellow pull-left"
+            >
+                Export PDF
+            </button>
             {console.log(record)}
             <h1>Credit Memo Summary</h1>
 
@@ -147,3 +153,36 @@ export const ProjectsShow = props => (
         </SimpleShowLayout>
     </Show>
 );
+
+export function exportPdfProjectReport(item) {
+    let headers = new Headers();
+    headers.set('Accept', 'application/pdf');
+    headers.set('Content-Type', 'application/pdf');
+
+    return (
+        fetch(item['@id'] + '/export/pdf', { method: 'POST', headers })
+        // https://medium.com/yellowcode/download-api-files-with-react-fetch-393e4dae0d9e
+        // 1. Convert the data into 'blob'
+            .then(response => response.blob())
+            .then(blob => {
+                // 2. Create blob link to download
+                const url = window.URL.createObjectURL(new Blob([blob]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute(
+                    'download',
+                    `project-report-${item['@id'].replace('/api/projects/', '')}.pdf`
+                );
+                // 3. Append to html page
+                document.body.appendChild(link);
+                // 4. Force download
+                link.click();
+                // 5. Clean up and remove the link
+                link.parentNode.removeChild(link);
+            })
+            .catch(e => {
+
+            })
+    );
+}
+
