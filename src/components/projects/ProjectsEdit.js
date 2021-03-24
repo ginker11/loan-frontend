@@ -61,8 +61,15 @@ export const ProjectsEdit = props => {
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                                     <Grid container direction = 'row' alignItems="center" spacing = {0}>
                                         <Grid item className = {classes.nestedGridItem}>
-                                            <ReferenceInput source='operatingCompany' reference='companies' label='Operating Company' 
-                                                filterToQuery={(searchText) => ({ title: searchText })}>
+                                            <ReferenceInput
+                                                source='operatingCompany'
+                                                reference='companies'
+                                                label='Operating Company'
+                                                filterToQuery={(searchText) => ({ title: searchText })}
+                                                format={v => {
+                                                    return v instanceof Object ? v['@id'] : v;
+                                                }}
+                                            >
                                                     <AutocompleteInput fullWidth optionText='name'/>
                                             </ReferenceInput>
                                         </Grid>

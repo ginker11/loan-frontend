@@ -18,6 +18,9 @@ const GuarantorFormField = ({ record }) => {
                         label="Contact"
                         allowEmpty
                         fullWidth
+                        format={v => {
+                            return v instanceof Object ? v['@id'] : v;
+                        }}
                         >
                         <SelectInput  optionText = {contact => `${contact.firstName}` + ` ` + `${contact.lastName}` } validate={[required()]} />
                         </ReferenceInput>

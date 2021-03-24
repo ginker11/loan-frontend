@@ -56,6 +56,9 @@ const BorrowerEditPanel = props => {
                             reference="companies"
                             label="Company"
                             style = {{width: '60%'}}
+                            format = {v => {
+                                return v instanceof Object ? v['@id'] : v;
+                            }}
                             >
                             <SelectInput  optionText = 'name'  autoSave defaultValue={record.company['name']}/>
                         </ReferenceInput>
