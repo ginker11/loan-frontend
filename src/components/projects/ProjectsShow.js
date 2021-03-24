@@ -41,6 +41,7 @@ const ProjectShowInfo = ({ record }) => {
         totalMonthlyPAndI += parseFloat(source['principalAndInterestPayment']);
     });
 
+
     return(
         <>
             <button
@@ -112,7 +113,7 @@ const ProjectShowInfo = ({ record }) => {
                         </tr>
                         <tr>
                             <TableCell className={classes.cellbg}><b>Interim Lender</b></TableCell>
-                            <TableCell colSpan={7}>(( Interim lender ))</TableCell>
+                            <TableCell colSpan={7}>{record.interimLender ? record.interimLender.name : 'n/a'}</TableCell>
                         </tr>
                         <tr>
                             <TableCell className={classes.cellbg} colSpan={8}>The CDC Interest Rate in the Financing Chart represents the coupon rate on the note. The SBA monthly P&I payment is calculated based on the "all-in" rate (coupon plus other fees) for the first 5 year period.</TableCell>
