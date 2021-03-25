@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListGuesser, FieldGuesser} from "@api-platform/admin";
+import { ListGuesser } from "@api-platform/admin";
 import {ListActions} from '../actions/ListActions';
 import {
     TextField,
@@ -21,7 +21,7 @@ export const UserList = props => {
             <TextField className = {classes.user} source = 'firstName' />
             <TextField className = {classes.user} source = 'lastName' />
             <EmailField className = {classes.user} source = 'email' />
-            <FieldGuesser className = {classes.user} source = 'role' />
+            <TextField className = {classes.user} label = 'Role' source = 'roles' />
         </ListGuesser>
     )
 }

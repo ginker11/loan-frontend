@@ -10,6 +10,11 @@ import borrowerCompanyOwnershipResource from './borrower_company_ownership/Borro
 import projectOperatingCompanyOwnershipResource from './project_operating_company_ownership/ProjectOperatingCompanyOwnerships';
 import guarantorResource from './guarantors/Guarantors';
 import debtServiceRatioResource from './debtServiceRatio/DebtServiceRatio';
+import usersResource from './users/User';
+// import inviteResource from './invite/index';
+// import adminDashboard from './admin_dashboard/AdminDashboard'
+// import staffUserResource from './staff_users/StaffUsers';
+// eslint-disable-next-line import/no-anonymous-default-export
 export default [
     companyResource,
     contactResource,
@@ -21,5 +26,9 @@ export default [
     borrowerCompanyOwnershipResource,
     projectOperatingCompanyOwnershipResource,
     guarantorResource,
-    debtServiceRatioResource
+    debtServiceRatioResource,
+    usersResource,
+    // inviteResource,
+    // adminDashboard,
+    // staffUserResource
 ];
