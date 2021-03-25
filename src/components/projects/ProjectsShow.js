@@ -125,6 +125,7 @@ const ProjectShowInfo = ({ record }) => {
             <br/>
 
             {record.borrower.map((b) => {
+                console.log(b);
                 if ('company' in b) {
                     let contactItems = [];
                     b.borrowerCompanyOwnership.forEach((bco) => {
@@ -133,7 +134,7 @@ const ProjectShowInfo = ({ record }) => {
 
                     return(
                         <>
-                            <b>Borrower/EPC: {b.company.name}</b>
+                            <BorrowerLabel label={b.company.name}/>
                             <ul>
                                 {contactItems}
                             </ul>
@@ -141,10 +142,22 @@ const ProjectShowInfo = ({ record }) => {
 
                         </>
                     )
+                } else {
+                    return(
+                        <>
+                            <BorrowerLabel label={b.contact.name}/>
+                            <br/>
+                            <br/>
+                        </>
+                    )
                 }
             })}
         </>
     );
+};
+
+const BorrowerLabel = props => {
+    return (<b>Borrower/EPC: {props.label}</b>)
 };
 
 export const ProjectsShow = props => (
