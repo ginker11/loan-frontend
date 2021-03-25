@@ -389,13 +389,16 @@ export const ProjectsEdit = props => {
                                     <TextInput multiline fullWidth label = 'Bank Debts' source = 'bankDebts' />
                                 </Grid>
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
-                                    <NumberInput fullWidth label = 'Debt of Worth' source = 'debtOfWorth'/>
+                                    <TextInput fullWidth label = 'Debt of Worth' source = 'debtOfWorth'/>
                                 </Grid>
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                                     <TextInput multiline fullWidth label = 'Sale Increases' source = 'saleIncreases' />
                                 </Grid>
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                                     <NullableBooleanInput style = {{width: '100%'}} label = 'SBA Appraisal Approval' source = 'sbaAppraisalApproval' />
+                                </Grid>
+                                <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
+                                    <TextInput fullWidth label = 'SBA Authorization Number' source = 'sbaAuthorizationNumber' />
                                 </Grid>
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                                     <NullableBooleanInput  style = {{width: '100%'}} label = 'Environmental Approval' source = 'environmentalApproval' />

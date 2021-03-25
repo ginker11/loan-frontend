@@ -1,9 +1,10 @@
 import React from 'react';
-import { SimpleShowLayout, Show } from 'react-admin';
+import { SimpleShowLayout, Show, useQuery } from 'react-admin';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, TableContainer, Table, TableCell, TableHead, TableRow, TableBody, Paper } from '@material-ui/core';
-import { getUsername } from '../authProvider';
+import {getCurrentUserId, getUsername} from '../authProvider';
 import { currencyFormat } from "../../util";
+import { UserFullName } from "../users/UserData";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,7 +42,6 @@ const ProjectShowInfo = ({ record }) => {
         totalMonthlyPAndI += parseFloat(source['principalAndInterestPayment']);
     });
 
-
     return(
         <>
             <button
@@ -56,7 +56,7 @@ const ProjectShowInfo = ({ record }) => {
             {/*<b>Date: {new Date().toDateString() }</b>*/}
             <b>Credit Memo Summary: {record.operatingCompany.name}</b>
 
-            <p>Prepared by: {getUsername()}</p>
+            <p>Prepared by: {UserFullName(getCurrentUserId())}</p>
 
             <p><b>Project collateral property:</b> {record.streetAddress} {record.city}, {record.state} {record.postalCode} {record.country}</p>
 
@@ -64,7 +64,7 @@ const ProjectShowInfo = ({ record }) => {
                 <b>Project Costs</b>
                 <ul>
                     <li>Total project costs are ${parseFloat(record.purchaseLandAndBuilding) + parseFloat(record.tenantImprovement) + parseFloat(record.eligibleFees)}; Purchased Land and Building ${record.purchaseLandAndBuilding}.</li>
-                    <li>((Project Description))</li>
+                    <li>{record.generalDescription}</li>
                 </ul>
             </p>
 

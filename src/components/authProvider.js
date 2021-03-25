@@ -82,6 +82,15 @@ export function getUsername() {
     }
 }
 
+export function getCurrentUserId() {
+    const token = getToken();
+    if (token) {
+        const decodedToken = decodeJwt(token);
+        return decodedToken.user_id;
+    }
+}
+
+
 export function isTokenExpired(token) {
   try {
     const decoded = parseJwt(token);
