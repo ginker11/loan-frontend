@@ -26,6 +26,9 @@ const ProjectOperatingCompanyFormFields = ({ record }) => {
                     label="Contact"
                     allowEmpty
                     fullWidth
+                    format={v => {
+                        return v instanceof Object ? v['@id'] : v;
+                    }}
                     >
                       <SelectInput required optionText = {contact => `${contact.firstName}` + ` ` + `${contact.lastName}` }  />
                     </ReferenceInput>

@@ -1,3 +1,5 @@
+import decodeJwt from 'jwt-decode';
+
 const entrypoint = process.env.REACT_APP_API_ENTRYPOINT
 const authTokenUri = `${entrypoint}/authentication_token`;
 const authenticationTokenUri = `${authTokenUri.replace('/api/','/')}`;
@@ -28,7 +30,8 @@ export default {
         })
         .then(({token}) => {
           // const decodedToken = parseJwt(token);
-          localStorage.setItem('token', token);
+          login(token);
+          // localStorage.setItem('token', token);
           // localStorage.setItem('permissions', decodedToken.permissions);
         })
         .catch(({error}) => {
@@ -52,10 +55,10 @@ export default {
   },
 
   checkAuth: () => {
-    return localStorage.getItem('token') ? Promise.resolve() : Promise.reject();
+    return getToken() ? Promise.resolve() : Promise.reject();
   },
   getPermissions: () => {
-    const token = localStorage.getItem('token');
+    const token = getToken();
     const decodedToken = parseJwt(token);
 
     const role = decodedToken.roles;
@@ -64,12 +67,29 @@ export default {
 };
 
 export function getEmail() {
-  if (localStorage.getItem('token')) {
-    const token = localStorage.getItem('token');
+  const token = getToken();
+  if (token) {
     const decodedToken = parseJwt(token);
     return decodedToken.email;
   }
 }
+
+export function getUsername() {
+    const token = getToken();
+    if (token) {
+        const decodedToken = decodeJwt(token);
+        return decodedToken.username;
+    }
+}
+
+export function getCurrentUserId() {
+    const token = getToken();
+    if (token) {
+        const decodedToken = decodeJwt(token);
+        return decodedToken.user_id;
+    }
+}
+
 
 export function isTokenExpired(token) {
   try {
@@ -87,8 +107,41 @@ export function isTokenExpired(token) {
 }
 
 export function isLoggedIn() {
-  const token = localStorage.getItem('token');
+  const token = getToken();
   return !!token && !isTokenExpired(token);
 }
 
+export function getToken() {
+    loginFromPdfToken();
+
+    return localStorage.getItem('token');
+}
+
+export function loginFromPdfToken() {
+    let token = getPdfTokenFromUrl();
+    if (token) {
+        login(token);
+    }
+}
+
+export function getPdfTokenFromUrl() {
+    let pdfToken = null;
+    let queryParams = window.location.search;
+
+    if (queryParams.indexOf('pdf_token=') > -1) {
+        let val = queryParams.match(/pdf_token=([^&]+)/);
+        pdfToken = val[1];
+
+        if (pdfToken) {
+            document.body.className = 'pdf-layout';
+            document.title = '';
+        }
+    }
+
+    return pdfToken;
+}
+
+export function login(token) {
+    localStorage.setItem('token', token);
+}
 

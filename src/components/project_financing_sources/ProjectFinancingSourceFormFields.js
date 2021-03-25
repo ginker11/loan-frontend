@@ -38,7 +38,7 @@ const ProjectFinancingSourceFormFields = ({ record, projectId }) => {
             setError(error);
             setLoading(false);
         })
-});
+  },[setLoading]);
 
 
 
@@ -65,6 +65,9 @@ if (error) return <Error />;
                     label="Financing Source"
                     fullWidth
                     validate={[required()]}
+                    format={v => {
+                        return v instanceof Object ? v['@id'] : v;
+                    }}
                   >
                     <AutocompleteInput optionText = 'name' />
                   </ReferenceInput>
@@ -88,6 +91,9 @@ if (error) return <Error />;
               label="Lien Position"
               fullWidth
               validate={[required()]}
+              format={v => {
+                  return v instanceof Object ? v['@id'] : v;
+              }}
             >
               <SelectInput optionText = 'position' />
             </ReferenceInput>

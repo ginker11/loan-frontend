@@ -1,7 +1,10 @@
 import React from 'react';
 import { ListActions } from '../actions/ListActions';
-import { TextField, List, Datagrid, ReferenceField, EditButton, DateField, FunctionField} from 'react-admin';
+import { TextField, List, Datagrid, ReferenceField, EditButton, ShowButton, DateField, FunctionField} from 'react-admin';
 import { makeStyles } from '@material-ui/core/styles';
+import { NavLink, Link } from 'react-router-dom';
+import DescriptionIcon from '@material-ui/icons/Description';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles({
     row: {
@@ -24,7 +27,8 @@ export const ProjectsList = props => {
                 <DateField source = 'createdAt' />
                 <DateField source = 'updatedAt' />
                 <EditButton />
+                <ShowButton label="View Report" icon={<DescriptionIcon/>}/>
             </Datagrid>
-         </List>         
+         </List>
     )
 }

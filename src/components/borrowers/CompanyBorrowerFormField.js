@@ -38,6 +38,9 @@ const CompanyBorrowerFormField = ({ record }) => {
                 reference="companies"
                 label="Company"
                 fullWidth
+                format={v => {
+                    return v instanceof Object ? v['@id'] : v;
+                }}
             >
                 <AutocompleteInput optionText="name" />
             </ReferenceInput>

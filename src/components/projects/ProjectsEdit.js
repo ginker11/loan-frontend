@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {FieldGuesser} from "@api-platform/admin";
 import {TextInput, AutocompleteInput, NumberInput, Datagrid, Edit, TabbedForm, 
-        FormTab, ReferenceInput, ReferenceManyField, DateInput, DeleteButton,
+        FormTab, ReferenceInput, ReferenceManyField, DateInput, BooleanInput, DeleteButton,
         NullableBooleanInput, FunctionField, TextField, } from 'react-admin';
 import CompanyFormField from '../companies/CompanyFormField';
 import BorrowerEditFormField from '../borrowers/BorrowerEditFormField';
@@ -57,12 +57,19 @@ export const ProjectsEdit = props => {
                 <FormTab label={'General Info'}>
                     <>
                         <div className = {classes.root}>
-                            <Grid container direction="row" justify="center" alignItems="center" spacing={6}>
+                            <Grid container direction="row" alignItems="center" spacing={6}>
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                                     <Grid container direction = 'row' alignItems="center" spacing = {0}>
                                         <Grid item className = {classes.nestedGridItem}>
-                                            <ReferenceInput source='operatingCompany' reference='companies' label='Operating Company' 
-                                                filterToQuery={(searchText) => ({ title: searchText })}>
+                                            <ReferenceInput
+                                                source='operatingCompany'
+                                                reference='companies'
+                                                label='Operating Company'
+                                                filterToQuery={(searchText) => ({ title: searchText })}
+                                                format={v => {
+                                                    return v instanceof Object ? v['@id'] : v;
+                                                }}
+                                            >
                                                     <AutocompleteInput fullWidth optionText='name'/>
                                             </ReferenceInput>
                                         </Grid>
@@ -102,12 +109,26 @@ export const ProjectsEdit = props => {
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                                     <TextInput fullWidth label = 'Eligible Fees' source = 'eligibleFees' />
                                 </Grid>
+                                <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
+                                    <BooleanInput fullWidth label = 'Payment Penalty' source = 'paymentPenalty' />
+                                </Grid>
                             </Grid>
                         </div>
                     </>
                 </FormTab>
                 <FormTab label={'Financing Sources'} path={'edit_financing'}>
+                <ReferenceInput source='interimLender'
+                                reference='financing_sources'
+                                label='Interim Lender'
+                                filterToQuery={(searchText) => ({ title: searchText })}
+                                format={v => {
+                                    return v instanceof Object ? v['@id'] : v;
+                                }}
+                >
+                    <AutocompleteInput fullWidth optionText='name'/>
+                </ReferenceInput>
                 <ReferenceManyField label = 'Project Financing Sources' reference="project_financing_sources" target = 'project'  >
+                    <>
                         <Datagrid expand={<PostPanel />}>
                             <TextField source = 'lienPosition.position' label = 'Lien Position'/>
                             <TextField source = 'financingSource.name' label = 'Financing Source'/>
@@ -132,21 +153,22 @@ export const ProjectsEdit = props => {
                             </ModalEditButton>
                             <DeleteButton redirect = {`/projects/${encodeURIComponent(props.id)}/edit_financing`} />
                         </Datagrid>
-                    </ReferenceManyField>
-                    <ModalCreateButton
-                        dialogResource="project_financing_sources"
-                        dialogFormField="projectFinancingSources"
-                        dialogTitle="Add a Financing Source"
-                        dialogMergeFormValues={{ project: props.id }}
-                        dialogRedirect={`/projects/${encodeURIComponent(
-                            props.id
-                        )}/edit_financing`}
-                        dialogAddTextLabel="Add a Financing Source"
-                        actionTypeEdit
+                        <ModalCreateButton
+                            dialogResource="project_financing_sources"
+                            dialogFormField="projectFinancingSources"
+                            dialogTitle="Add a Financing Source"
+                            dialogMergeFormValues={{ project: props.id }}
+                            dialogRedirect={`/projects/${encodeURIComponent(
+                                props.id
+                            )}/edit_financing`}
+                            dialogAddTextLabel="Add a Financing Source"
+                            actionTypeEdit
                         >
-                        <ProjectFinancingSourceFormFields  projectId = {props.id}  />
+                            <ProjectFinancingSourceFormFields  projectId = {props.id}  />
                         </ModalCreateButton>
-                        <ProjectFinancingSourceSummary projectId= {props.id}/>
+                        <ProjectFinancingSourceSummary projectId = {props.id}/>
+                    </>
+                </ReferenceManyField>
                 </FormTab>
                 <FormTab label={'O.C Owner(s)'} path = {'edit_oc_owners'}>
                         <ReferenceManyField label = 'Project Operating Company Ownership Percentages' reference = 'project_operating_company_ownerships' target = 'project'>
@@ -358,7 +380,7 @@ export const ProjectsEdit = props => {
                                     <NumberInput fullWidth label = 'Working Capital' source = 'workingCapital' />
                                 </Grid> 
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
-                                    <NumberInput fullWidth label = 'Liquidity Ratio' source = 'liquidityRatio' />
+                                    <TextInput fullWidth label = 'Liquidity Ratio' source = 'liquidityRatio' />
                                 </Grid>
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                                     <TextInput multiline fullWidth label = 'Liquidity Strength' source = 'liquidityStrength' />
@@ -367,13 +389,16 @@ export const ProjectsEdit = props => {
                                     <TextInput multiline fullWidth label = 'Bank Debts' source = 'bankDebts' />
                                 </Grid>
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
-                                    <NumberInput fullWidth label = 'Debt of Worth' source = 'debtOfWorth'/>
+                                    <TextInput fullWidth label = 'Debt of Worth' source = 'debtOfWorth'/>
                                 </Grid>
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                                     <TextInput multiline fullWidth label = 'Sale Increases' source = 'saleIncreases' />
                                 </Grid>
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                                     <NullableBooleanInput style = {{width: '100%'}} label = 'SBA Appraisal Approval' source = 'sbaAppraisalApproval' />
+                                </Grid>
+                                <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
+                                    <TextInput fullWidth label = 'SBA Authorization Number' source = 'sbaAuthorizationNumber' />
                                 </Grid>
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                                     <NullableBooleanInput  style = {{width: '100%'}} label = 'Environmental Approval' source = 'environmentalApproval' />
