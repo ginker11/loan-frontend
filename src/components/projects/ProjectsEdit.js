@@ -380,7 +380,7 @@ export const ProjectsEdit = props => {
                                     <NumberInput fullWidth label = 'Working Capital' source = 'workingCapital' />
                                 </Grid> 
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
-                                    <TextInput fullWidth label = 'Liquidity Ratio' source = 'liquidityRatio' />
+                                    <NumberInput fullWidth label = 'Liquidity Ratio' source = 'liquidityRatio' />
                                 </Grid>
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                                     <TextInput multiline fullWidth label = 'Liquidity Strength' source = 'liquidityStrength' />
