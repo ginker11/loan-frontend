@@ -125,7 +125,6 @@ const ProjectShowInfo = ({ record }) => {
             <br/>
 
             {record.borrower.map((b) => {
-                console.log(b);
                 if ('company' in b) {
                     let contactItems = [];
                     b.borrowerCompanyOwnership.forEach((bco) => {
@@ -152,6 +151,29 @@ const ProjectShowInfo = ({ record }) => {
                     )
                 }
             })}
+
+            <br/>
+
+            {/*<p><b>Historical Cash Flows</b></p>*/}
+            {/*<ul>*/}
+                {/*<li>As of {record.periodEndingDate}, the OC has {record.cashOnHand ? '$'+record.cashOnHand : 'n/a'} and {record.workingCapital ? '$'+record.workingCapital : 'n/a'}. Liquidity is {record.liquidityStrength ? record.liquidityStrength : 'n/a'} as shown by the current ratio of {record.liquidityRatio ? record.liquidityRatio: 'n/a'}</li>*/}
+            {/*</ul>*/}
+
+            {record.guarantors.length > 0 &&
+                <>
+                    <p><b>Guarantors</b></p>
+                </>
+            }
+
+            {record.guarantors.map((g) => {
+                console.log(g);
+                return (
+                    <>
+                        <p>{g.contact.name} -- FICO Score {g.ficoScore}</p>
+                    </>
+                )
+            })}
+
         </>
     );
 };
