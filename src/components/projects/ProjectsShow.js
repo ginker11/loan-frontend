@@ -199,7 +199,7 @@ export function exportPdfProjectReport(item) {
     headers.set('Authorization', 'Bearer ' + getToken());
 
     return (
-        fetch(entrypoint.replace('/api', '') + item['@id'] + '/export/pdf', { method: 'POST', headers })
+        fetch(entrypoint + item['@id'].replace('/api', '') + '/export/pdf', { method: 'POST', headers })
         // https://medium.com/yellowcode/download-api-files-with-react-fetch-393e4dae0d9e
         // 1. Convert the data into 'blob'
             .then(response => response.blob())
