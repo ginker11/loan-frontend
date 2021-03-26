@@ -46,7 +46,7 @@ const ProjectShowInfo = ({ record }) => {
         <>
             <button
                 onClick={event => exportPdfProjectReport(record, event)}
-                className="btn btn-info btn-yellow pull-left"
+                className="btn btn-info btn-yellow pull-left export-pdf-button"
             >
                 Export PDF
             </button>
