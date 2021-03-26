@@ -1,11 +1,12 @@
 import {hydraDataProvider as baseHydraDataProvider, fetchHydra as baseFetchHydra, useIntrospection} from "@api-platform/admin";
 import parseHydraDocumentation from "@api-platform/api-doc-parser/lib/hydra/parseHydraDocumentation";
 import { Route, Redirect } from 'react-router-dom';
+import { isLoggedIn, getToken, logout } from './authProvider';
 
-const getHeaders = () => localStorage.getItem("token") ? {
-    Authorization: `Bearer ${localStorage.getItem("token")}`
+const getHeaders = () => isLoggedIn() ? {
+    Authorization: `Bearer ${getToken()}`
   } : {};
-  
+
   const entrypoint = process.env.REACT_APP_API_ENTRYPOINT;
   
   const fetchHydra = (url, options = {}) => baseFetchHydra(url, { ...options, 
@@ -14,7 +15,7 @@ const getHeaders = () => localStorage.getItem("token") ? {
   
   const RedirectToLogin = () => {
       const introspect = useIntrospection();
-      if (localStorage.getItem("token")) {
+      if (isLoggedIn()) {
           introspect();
           return <></>;
       }
@@ -30,7 +31,7 @@ const getHeaders = () => localStorage.getItem("token") ? {
       } catch (result) {
           if (result.status === 401) {
               // Prevent infinite loop if the token is expired
-              localStorage.removeItem("token");
+              logout();
               return {
                   api: result.api,
                   customRoutes: [

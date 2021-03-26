@@ -39,7 +39,7 @@ export default {
         });
   },
   logout: () => {
-    localStorage.removeItem('token');
+    logout();
     // localStorage.removeItem('raColumnsConfig');
     // window.location.reload();
     return Promise.resolve();
@@ -96,7 +96,7 @@ export function isTokenExpired(token) {
     const decoded = parseJwt(token);
     if (decoded.exp < Date.now() / 1000) {
       // Logging out
-      localStorage.removeItem('token');
+      logout();
       return true;
     } else {
       return false;
@@ -113,7 +113,6 @@ export function isLoggedIn() {
 
 export function getToken() {
     loginFromPdfToken();
-
     return localStorage.getItem('token');
 }
 
@@ -127,7 +126,6 @@ export function loginFromPdfToken() {
 export function getPdfTokenFromUrl() {
     let pdfToken = null;
     let queryParams = window.location.search;
-
     if (queryParams.indexOf('pdf_token=') > -1) {
         let val = queryParams.match(/pdf_token=([^&]+)/);
         pdfToken = val[1];
@@ -143,5 +141,9 @@ export function getPdfTokenFromUrl() {
 
 export function login(token) {
     localStorage.setItem('token', token);
+}
+
+export function logout() {
+    localStorage.removeItem('token');
 }
 
