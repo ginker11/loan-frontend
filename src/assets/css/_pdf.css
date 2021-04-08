@@ -1,0 +1,18 @@
+.pdf-layout .MuiDrawer-root,
+.pdf-layout header.MuiAppBar-root,
+.pdf-layout #main-content .show-page .MuiToolbar-root,
+.pdf-layout button.export-pdf-button {
+    display:none;
+}
+
+.pdf-layout #root .layout>div {
+    margin-top:0 !important;
+}
+
+.pdf-layout #root .layout {
+    background-color:#fff !important;
+}
+
+.pdf-layout #main-content .show-page .MuiCard-root {
+    border:none;
+}

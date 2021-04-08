@@ -2,7 +2,7 @@ import React from 'react';
 import { SimpleShowLayout, Show, useQuery } from 'react-admin';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, TableContainer, Table, TableCell, TableHead, TableRow, TableBody, Paper } from '@material-ui/core';
-import {getCurrentUserId, getUsername} from '../authProvider';
+import { getCurrentUserId, getUsername, getToken } from '../authProvider';
 import { currencyFormat } from "../../util";
 import { UserFullName } from "../users/UserData";
 
@@ -46,7 +46,7 @@ const ProjectShowInfo = ({ record }) => {
         <>
             <button
                 onClick={event => exportPdfProjectReport(record, event)}
-                className="btn btn-info btn-yellow pull-left"
+                className="btn btn-info btn-yellow pull-left export-pdf-button"
             >
                 Export PDF
             </button>
@@ -191,12 +191,15 @@ export const ProjectsShow = props => (
 );
 
 export function exportPdfProjectReport(item) {
+    const entrypoint = process.env.REACT_APP_API_ENTRYPOINT;
     let headers = new Headers();
+
     headers.set('Accept', 'application/pdf');
     headers.set('Content-Type', 'application/pdf');
+    headers.set('Authorization', 'Bearer ' + getToken());
 
     return (
-        fetch(item['@id'] + '/export/pdf', { method: 'POST', headers })
+        fetch(entrypoint + item['@id'].replace('/api', '') + '/export/pdf', { method: 'POST', headers })
         // https://medium.com/yellowcode/download-api-files-with-react-fetch-393e4dae0d9e
         // 1. Convert the data into 'blob'
             .then(response => response.blob())
@@ -217,7 +220,6 @@ export function exportPdfProjectReport(item) {
                 link.parentNode.removeChild(link);
             })
             .catch(e => {
-
             })
     );
 }
