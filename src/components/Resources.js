@@ -11,7 +11,7 @@ import projectOperatingCompanyOwnershipResource from './project_operating_compan
 import guarantorResource from './guarantors/Guarantors';
 import debtServiceRatioResource from './debtServiceRatio/DebtServiceRatio';
 import usersResource from './users/User';
-// import inviteResource from './invite/index';
+import inviteResource from './invite/index';
 // import adminDashboard from './admin_dashboard/AdminDashboard'
 // import staffUserResource from './staff_users/StaffUsers';
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -28,7 +28,7 @@ export default [
     guarantorResource,
     debtServiceRatioResource,
     usersResource,
-    // inviteResource,
+    inviteResource,
     // adminDashboard,
     // staffUserResource
 ];
