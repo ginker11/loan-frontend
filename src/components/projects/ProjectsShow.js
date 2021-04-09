@@ -42,6 +42,18 @@ const ProjectShowInfo = ({ record }) => {
         totalMonthlyPAndI += parseFloat(source['principalAndInterestPayment']);
     });
 
+    let debtServiceRatiosStr = '';
+    let debtServiceRatiosYearStr = '';
+    for ( var i=0; i<record.debtServiceRatio.length; i++) {
+        if (i < record.debtServiceRatio.length-1) {
+            debtServiceRatiosStr += record.debtServiceRatio[i].ratio + ', ';
+            debtServiceRatiosYearStr += record.debtServiceRatio[i].year + ', ';
+        } else {
+            debtServiceRatiosStr += 'and ' + record.debtServiceRatio[i].ratio;
+            debtServiceRatiosYearStr += 'and ' + record.debtServiceRatio[i].year;
+        }
+    }
+
     return(
         <>
             <button
@@ -53,8 +65,8 @@ const ProjectShowInfo = ({ record }) => {
             {console.log(record)}
             <h1>Credit Memo Summary</h1>
 
-            {/*<b>Date: {new Date().toDateString() }</b>*/}
-            <b>Credit Memo Summary: {record.operatingCompany.name}</b>
+            <b>Date: {new Date().toDateString() }</b>
+            <p><b>Credit Memo Summary: {record.operatingCompany.name}</b></p>
 
             <p>Prepared by: {UserFullName(getCurrentUserId())}</p>
 
@@ -64,7 +76,7 @@ const ProjectShowInfo = ({ record }) => {
                 <b>Project Costs</b>
                 <ul>
                     <li>Total project costs are ${parseFloat(record.purchaseLandAndBuilding) + parseFloat(record.tenantImprovement) + parseFloat(record.eligibleFees)}; Purchased Land and Building ${record.purchaseLandAndBuilding}.</li>
-                    <li>{record.generalDescription}</li>
+                    {(record.generalDescription) && (<li>{record.generalDescription}</li>)}
                 </ul>
             </p>
 
@@ -154,10 +166,20 @@ const ProjectShowInfo = ({ record }) => {
 
             <br/>
 
-            {/*<p><b>Historical Cash Flows</b></p>*/}
-            {/*<ul>*/}
-                {/*<li>As of {record.periodEndingDate}, the OC has {record.cashOnHand ? '$'+record.cashOnHand : 'n/a'} and {record.workingCapital ? '$'+record.workingCapital : 'n/a'}. Liquidity is {record.liquidityStrength ? record.liquidityStrength : 'n/a'} as shown by the current ratio of {record.liquidityRatio ? record.liquidityRatio: 'n/a'}</li>*/}
-            {/*</ul>*/}
+            <p><b>OC: {record.operatingCompany.name}</b></p>
+            <ul>
+            {record.projectOperatingCompanyOwnerships.map((p) => {
+                return (
+                    <li>{p.ownershipPercentage}% owned by {p.contact.name}</li>
+                )
+            })}
+            {record.ocGeneralDescription && (<li>{record.ocGeneralDescription}</li>)}
+            </ul>
+            <p><b>Historical Cash Flows</b></p>
+            <ul>
+                <li>As of {new Date(record.periodEndingDate).toLocaleDateString('en-US')}, the OC has {record.cashOnHand ? '$'+record.cashOnHand : 'n/a'} and {record.workingCapital ? '$'+record.workingCapital : 'n/a'}. Liquidity is {record.liquidityStrength ? record.liquidityStrength : 'n/a'} as shown by the current ratio of {record.liquidityRatio ? record.liquidityRatio: 'n/a'}</li>
+                <li>DCR is {debtServiceRatiosStr} for {debtServiceRatiosYearStr}</li>
+            </ul>
 
             {record.guarantors.length > 0 &&
                 <>
@@ -173,6 +195,12 @@ const ProjectShowInfo = ({ record }) => {
                     </>
                 )
             })}
+
+            <p><b>RISK RATING SCORE: {record.riskRatingScore}</b></p>
+
+            <p>SBA Appraisal Approval: {record.sbaAppraisalApproval ? 'yes' : 'no'}</p>
+            <p>SBA Authorization #: {record.sbaAuthorizationNumber}</p>
+            <p>Environmental Approval: {record.environmentalApproval ? 'yes' : 'no'}</p>
 
         </>
     );

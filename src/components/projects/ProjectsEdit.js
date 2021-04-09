@@ -410,6 +410,9 @@ export const ProjectsEdit = props => {
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                                     <NullableBooleanInput  style = {{width: '100%'}} label = 'Environmental Approval' source = 'environmentalApproval' />
                                 </Grid>
+                                <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
+                                    <TextInput fullWidth label = 'Risk Rating Score' source = 'riskRatingScore' />
+                                </Grid>
                             </Grid>
                         </div>
                     </FormTab>
