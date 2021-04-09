@@ -21,6 +21,7 @@ import ProjectOperatingCompanyFormFields from '../project_operating_company_owne
 import GuarantorFormField from '../guarantors/GuarantorFormField';
 import DebtServiceRatioFormField from '../debtServiceRatio/DebtServiceRatioFormField';
 import ProjectFinancingSourceSummary from '../project_financing_sources/ProjectFinancingSourceSummary';
+import FinancingSourceFormField from '../financing_sources/FinancingSourceFormField';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -120,17 +121,34 @@ export const ProjectsEdit = props => {
                     </>
                 </FormTab>
                 <FormTab label={'Financing Sources'} path={'edit_financing'}>
-                <ReferenceInput source='interimLender'
-                                reference='financing_sources'
-                                label='Interim Lender'
-                                filterToQuery={(searchText) => ({ title: searchText })}
-                                format={v => {
-                                    return v instanceof Object ? v['@id'] : v;
-                                }}
-                >
-                    <AutocompleteInput fullWidth optionText='name'/>
-                </ReferenceInput>
-                <ReferenceManyField label = 'Project Financing Sources' reference="project_financing_sources" target = 'project'  >
+                    <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
+                        <Grid container direction = 'row' alignItems="center" spacing = {0}>
+                            <Grid item className = {classes.nestedGridItem}>
+                                <ReferenceInput source='interimLender'
+                                                reference='financing_sources'
+                                                label='Interim Lender'
+                                                filterToQuery={(searchText) => ({ title: searchText })}
+                                                format={v => {
+                                                    return v instanceof Object ? v['@id'] : v;
+                                                }}
+                                >
+                                    <AutocompleteInput fullWidth optionText='name'/>
+                                </ReferenceInput>
+                            </Grid>
+                            <Grid item className = {classes.addButton}>
+                                <ModalCreateButton
+                                    dialogResource="financing_sources"
+                                    dialogFormField="financingSource"
+                                    dialogTitle="Add a Financing Source"
+                                    actionTypeCreate
+                                >
+                                    <FinancingSourceFormField />
+                                </ModalCreateButton>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+
+                    <ReferenceManyField label = 'Project Financing Sources' reference="project_financing_sources" target = 'project'  >
                     <>
                         <Datagrid expand={<PostPanel />}>
                             <TextField source = 'lienPosition.position' label = 'Lien Position'/>
