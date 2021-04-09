@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, NumberInput, ReferenceInput, SelectInput, required, NullableBooleanInput } from 'react-admin';
+import { TextInput, NumberInput, ReferenceInput, SelectInput, required, NullableBooleanInput, AutocompleteInput } from 'react-admin';
 import { Grid, Typography } from '@material-ui/core';
 import ModalCreateButton from '../helpers/ModalCreateButton';
 import ContactFormField from '../contacts/ContactFormField';
@@ -22,7 +22,7 @@ const GuarantorFormField = ({ record }) => {
                             return v instanceof Object ? v['@id'] : v;
                         }}
                         >
-                        <SelectInput  optionText = {contact => `${contact.firstName}` + ` ` + `${contact.lastName}` } validate={[required()]} />
+                        <AutocompleteInput fullWidth optionText='name'/>
                         </ReferenceInput>
                     </Grid>
                     <Grid item xs={1}>
