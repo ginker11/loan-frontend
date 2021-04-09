@@ -35,6 +35,9 @@ const MySideMenu = ({ onMenuClick, toggleSidebar, logout }) => {
              <MenuItemLink to = '/companies' primaryText = 'Companies' 
                             leftIcon = {<BusinessIcon onClick = {onMenuClick}/>}
                             sidebarIsOpen = {open}/>
+            <MenuItemLink to = '/users' primaryText = 'Staff'
+                          leftIcon = {<BusinessIcon onClick = {onMenuClick}/>}
+                          sidebarIsOpen = {open}/>
             <SubMenu                 
                 handleToggle={() => handleToggle('menuConfigurations')}
                 isOpen={state.menuConfigurations}

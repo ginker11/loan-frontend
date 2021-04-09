@@ -15,7 +15,9 @@ const parseJwt = (token) => {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   login: ({ username, password }) => {
-
+      const hash = window.location.hash;
+      console.log(hash);
+      console.log('login');
     const request = new Request(authenticationTokenUri, {
       method: 'POST',
       body: JSON.stringify({ email: username, password }),
@@ -55,9 +57,23 @@ export default {
   },
 
   checkAuth: () => {
+      const hash = window.location.hash;
+    console.log(hash);
+      console.log('auth');
+    if (hash.includes('invite')){
+        console.log('testa');
+        return Promise.resolve();
+    }
     return getToken() ? Promise.resolve() : Promise.reject();
   },
   getPermissions: () => {
+      const hash = window.location.hash;
+      console.log(hash);
+      console.log('perm');
+      if (hash.includes('invite')){
+          console.log('testp');
+          return Promise.resolve();
+      }
     const token = getToken();
     const decodedToken = parseJwt(token);
 

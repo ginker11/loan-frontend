@@ -6,6 +6,7 @@ import { createBrowserHistory } from 'history';
 import MyLayout from './layout/MyLayout';
 import DataProvider from './components/DataProvider.js'
 import Resources from './components/Resources';
+import customRoutes from './components/CustomRoutes';
 
 const entrypoint = process.env.REACT_APP_API_ENTRYPOINT;
 const history = createBrowserHistory();
@@ -16,6 +17,7 @@ export default () => (
         entrypoint={entrypoint}
         layout={MyLayout}
         history={history}
+        customRoutes={customRoutes}
         dataProvider={DataProvider}
         authProvider = {authProvider}
     >
