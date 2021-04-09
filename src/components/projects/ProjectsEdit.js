@@ -112,6 +112,9 @@ export const ProjectsEdit = props => {
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                                     <BooleanInput fullWidth label = 'Payment Penalty' source = 'paymentPenalty' />
                                 </Grid>
+                                <Grid item className = {classes.gridItem} xs = {6} sm = {6} lg = {6}>
+                                    <TextInput multiline fullWidth label = 'Project General Description' source = 'generalDescription' />
+                                </Grid>
                             </Grid>
                         </div>
                     </>
@@ -170,8 +173,21 @@ export const ProjectsEdit = props => {
                     </>
                 </ReferenceManyField>
                 </FormTab>
-                <FormTab label={'O.C Owner(s)'} path = {'edit_oc_owners'}>
-                        <ReferenceManyField label = 'Project Operating Company Ownership Percentages' reference = 'project_operating_company_ownerships' target = 'project'>
+                <FormTab label={'O.C. Info'} path = {'edit_oc_owners'}>
+                    <div className = {classes.root}>
+                        <Grid container direction="row" alignItems="center" spacing={6}>
+                            <Grid item className = {classes.gridItem} xs = {6} sm = {6} lg = {6}>
+                                <TextInput multiline fullWidth label = 'O.C. General Description' source = 'ocGeneralDescription' />
+                            </Grid>
+                            <Grid item className = {classes.gridItem} xs = {6} sm = {6} lg = {6}>
+                                <TextInput multiline fullWidth label = 'O.C. Financial Description' source = 'financialDescription' />
+                            </Grid>
+                            <Grid item className = {classes.gridItem} xs = {6} sm = {6} lg = {6}>
+                                <TextInput multiline fullWidth label = 'O.C. Public Record Report' source = 'publicRecordReport' />
+                            </Grid>
+                        </Grid>
+                    </div>
+                    <ReferenceManyField label = 'Project Operating Company Ownership Percentages' reference = 'project_operating_company_ownerships' target = 'project'>
                             <Datagrid>
                                 <FunctionField label = 'Contact' render = {record => `${record.contact.firstName}` + ` ` + `${record.contact.lastName}`} />
                                 <FieldGuesser source = 'ownershipPercentage' />
@@ -361,15 +377,6 @@ export const ProjectsEdit = props => {
                 <FormTab label = 'Additional Info' source = 'additional_info'>
                         <div className = {classes.root}>
                             <Grid container direction="row" alignItems="center" spacing={6}>
-                                <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
-                                    <TextInput multiline fullWidth label = 'General Description' source = 'generalDescription' />
-                                </Grid>
-                                <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
-                                    <TextInput multiline fullWidth label = 'Financial Description' source = 'financialDescription' />
-                                </Grid> 
-                                <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
-                                    <TextInput multiline fullWidth label = 'Public Record Report' source = 'publicRecordReport' />
-                                </Grid>
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                                     <DateInput fullWidth label = 'Period Ending Date' source = 'periodEndingDate' />
                                 </Grid> 
