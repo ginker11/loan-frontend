@@ -21,6 +21,7 @@ import ProjectOperatingCompanyFormFields from '../project_operating_company_owne
 import GuarantorFormField from '../guarantors/GuarantorFormField';
 import DebtServiceRatioFormField from '../debtServiceRatio/DebtServiceRatioFormField';
 import ProjectFinancingSourceSummary from '../project_financing_sources/ProjectFinancingSourceSummary';
+import FinancingSourceFormField from '../financing_sources/FinancingSourceFormField';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -112,22 +113,42 @@ export const ProjectsEdit = props => {
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                                     <BooleanInput fullWidth label = 'Payment Penalty' source = 'paymentPenalty' />
                                 </Grid>
+                                <Grid item className = {classes.gridItem} xs = {6} sm = {6} lg = {6}>
+                                    <TextInput multiline fullWidth label = 'Project General Description' source = 'generalDescription' />
+                                </Grid>
                             </Grid>
                         </div>
                     </>
                 </FormTab>
                 <FormTab label={'Financing Sources'} path={'edit_financing'}>
-                <ReferenceInput source='interimLender'
-                                reference='financing_sources'
-                                label='Interim Lender'
-                                filterToQuery={(searchText) => ({ title: searchText })}
-                                format={v => {
-                                    return v instanceof Object ? v['@id'] : v;
-                                }}
-                >
-                    <AutocompleteInput fullWidth optionText='name'/>
-                </ReferenceInput>
-                <ReferenceManyField label = 'Project Financing Sources' reference="project_financing_sources" target = 'project'  >
+                    <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
+                        <Grid container direction = 'row' alignItems="center" spacing = {0}>
+                            <Grid item className = {classes.nestedGridItem}>
+                                <ReferenceInput source='interimLender'
+                                                reference='financing_sources'
+                                                label='Interim Lender'
+                                                filterToQuery={(searchText) => ({ title: searchText })}
+                                                format={v => {
+                                                    return v instanceof Object ? v['@id'] : v;
+                                                }}
+                                >
+                                    <AutocompleteInput fullWidth optionText='name'/>
+                                </ReferenceInput>
+                            </Grid>
+                            <Grid item className = {classes.addButton}>
+                                <ModalCreateButton
+                                    dialogResource="financing_sources"
+                                    dialogFormField="financingSource"
+                                    dialogTitle="Add a Financing Source"
+                                    actionTypeCreate
+                                >
+                                    <FinancingSourceFormField />
+                                </ModalCreateButton>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+
+                    <ReferenceManyField label = 'Project Financing Sources' reference="project_financing_sources" target = 'project'  >
                     <>
                         <Datagrid expand={<PostPanel />}>
                             <TextField source = 'lienPosition.position' label = 'Lien Position'/>
@@ -170,8 +191,21 @@ export const ProjectsEdit = props => {
                     </>
                 </ReferenceManyField>
                 </FormTab>
-                <FormTab label={'O.C Owner(s)'} path = {'edit_oc_owners'}>
-                        <ReferenceManyField label = 'Project Operating Company Ownership Percentages' reference = 'project_operating_company_ownerships' target = 'project'>
+                <FormTab label={'O.C. Info'} path = {'edit_oc_owners'}>
+                    <div className = {classes.root}>
+                        <Grid container direction="row" alignItems="center" spacing={6}>
+                            <Grid item className = {classes.gridItem} xs = {6} sm = {6} lg = {6}>
+                                <TextInput multiline fullWidth label = 'O.C. General Description' source = 'ocGeneralDescription' />
+                            </Grid>
+                            <Grid item className = {classes.gridItem} xs = {6} sm = {6} lg = {6}>
+                                <TextInput multiline fullWidth label = 'O.C. Financial Description' source = 'financialDescription' />
+                            </Grid>
+                            <Grid item className = {classes.gridItem} xs = {6} sm = {6} lg = {6}>
+                                <TextInput multiline fullWidth label = 'O.C. Public Record Report' source = 'publicRecordReport' />
+                            </Grid>
+                        </Grid>
+                    </div>
+                    <ReferenceManyField label = 'Project Operating Company Ownership Percentages' reference = 'project_operating_company_ownerships' target = 'project'>
                             <Datagrid>
                                 <FunctionField label = 'Contact' render = {record => `${record.contact.firstName}` + ` ` + `${record.contact.lastName}`} />
                                 <FieldGuesser source = 'ownershipPercentage' />
@@ -362,15 +396,6 @@ export const ProjectsEdit = props => {
                         <div className = {classes.root}>
                             <Grid container direction="row" alignItems="center" spacing={6}>
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
-                                    <TextInput multiline fullWidth label = 'General Description' source = 'generalDescription' />
-                                </Grid>
-                                <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
-                                    <TextInput multiline fullWidth label = 'Financial Description' source = 'financialDescription' />
-                                </Grid> 
-                                <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
-                                    <TextInput multiline fullWidth label = 'Public Record Report' source = 'publicRecordReport' />
-                                </Grid>
-                                <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                                     <DateInput fullWidth label = 'Period Ending Date' source = 'periodEndingDate' />
                                 </Grid> 
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
@@ -402,6 +427,9 @@ export const ProjectsEdit = props => {
                                 </Grid>
                                 <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
                                     <NullableBooleanInput  style = {{width: '100%'}} label = 'Environmental Approval' source = 'environmentalApproval' />
+                                </Grid>
+                                <Grid item className = {classes.gridItem} xs = {12} sm = {6} lg = {4}>
+                                    <TextInput fullWidth label = 'Risk Rating Score' source = 'riskRatingScore' />
                                 </Grid>
                             </Grid>
                         </div>
