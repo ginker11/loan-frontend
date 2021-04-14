@@ -53,8 +53,8 @@ export const ProjectsEdit = props => {
     const classes = useStyles();
 
     return(
-        <Edit {...props} actions = {<EditActions title = {<ProjectTitle />} />} >
-            <TabbedForm>
+        <Edit {...props} actions = {<EditActions title = {<ProjectTitle />} />}>
+            <TabbedForm redirect={props.location.pathname}>
                 <FormTab label={'General Info'}>
                     <>
                         <div className = {classes.root}>
@@ -138,7 +138,7 @@ export const ProjectsEdit = props => {
                             <Grid item className = {classes.addButton}>
                                 <ModalCreateButton
                                     dialogResource="financing_sources"
-                                    dialogFormField="financingSource"
+                                    dialogFormField="interimLender"
                                     dialogTitle="Add a Financing Source"
                                     actionTypeCreate
                                 >
