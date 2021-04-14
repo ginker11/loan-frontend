@@ -30,7 +30,6 @@ const getHeaders = () => isLoggedIn() ? {
           return { api };
       } catch (result) {
           if (result.status === 401) {
-              // Prevent infinite loop if the token is expired
               logout();
               return {
                   api: result.api,
