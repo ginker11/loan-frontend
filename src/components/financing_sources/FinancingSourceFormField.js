@@ -14,7 +14,7 @@ const FinancingSourceFormField = ({ record }) => {
         </Grid>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
-            <TextInput fullWidth  label = 'Financing Source' source = 'name' id = 'financingSource2' validate={[required()]}/>                    
+            <TextInput fullWidth  label = 'Name' source = 'name' id = 'financingSource2' validate={[required()]}/>
           </Grid>
         </Grid>
       </Grid>

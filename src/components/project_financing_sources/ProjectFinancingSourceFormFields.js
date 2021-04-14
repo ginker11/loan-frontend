@@ -90,7 +90,6 @@ if (error) return <Error />;
               reference="lien_positions"
               label="Lien Position"
               fullWidth
-              validate={[required()]}
               format={v => {
                   return v instanceof Object ? v['@id'] : v;
               }}
@@ -99,22 +98,22 @@ if (error) return <Error />;
             </ReferenceInput>
           </Grid>
           <Grid item xs={12} sm={6}>
-              <TextInput validate={[]} fullWidth label = 'Amount' source = 'amount' />
+              <TextInput validate={[]} fullWidth label = 'Amount' source = 'amount' initialValue="0" validate={[required()]} />
           </Grid>
           <Grid item xs={12} sm={6}>
-              <TextInput validate={[]} fullWidth label = 'Principal and Interest Payment' source = 'principalAndInterestPayment'/>
+              <TextInput validate={[]} fullWidth label = 'Principal and Interest Payment' source = 'principalAndInterestPayment' initialValue="0" validate={[required()]} />
           </Grid>
           <Grid item xs={12} sm={6}>
-              <NumberInput validate={[]} fullWidth label = 'Amortization' source = 'amortization'/>
+              <NumberInput validate={[]} fullWidth label = 'Amortization' source = 'amortization' initialValue="0" validate={[required()]} />
           </Grid>
           <Grid item xs={12} sm={6}>
-              <TextInput validate={[]} fullWidth label = 'Rate' source = 'rate'/>
+              <TextInput validate={[]} fullWidth label = 'Rate' source = 'rate' initialValue="0" validate={[required()]} />
           </Grid>
           <Grid item xs={12} sm={6}>
-              <NumberInput validate={[]} fullWidth label = 'Term' source = 'term'/>
+              <NumberInput validate={[]} fullWidth label = 'Term' source = 'term' initialValue="0" validate={[required()]} />
           </Grid>
           <Grid item xs={12} sm={6}>
-              <TextInput disabled fullWidth label = 'Percentage' source = 'percentage' />
+              <TextInput disabled fullWidth label = 'Percentage' source = 'percentage' initialValue="0" validate={[required()]} />
           </Grid>
         </Grid>
       </Grid>
