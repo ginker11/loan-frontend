@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Redirect } from 'react-router-dom';
 
 
 
@@ -20,6 +20,7 @@ export function inviteConfirm(item, values) {
                     '=' +
                     encodeURIComponent(values[key])
                 );
+
             }
 
             return '';
