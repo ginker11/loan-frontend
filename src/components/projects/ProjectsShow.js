@@ -178,7 +178,7 @@ const ProjectShowInfo = ({ record }) => {
             <p><b>Historical Cash Flows</b></p>
             <ul>
                 <li>As of {new Date(record.periodEndingDate).toLocaleDateString('en-US')}, the OC has {record.cashOnHand ? '$'+record.cashOnHand : 'n/a'} and {record.workingCapital ? '$'+record.workingCapital : 'n/a'}. Liquidity is {record.liquidityStrength ? record.liquidityStrength : 'n/a'} as shown by the current ratio of {record.liquidityRatio ? record.liquidityRatio: 'n/a'}</li>
-                <li>DCR is {debtServiceRatiosStr} for {debtServiceRatiosYearStr}</li>
+                {(debtServiceRatiosStr && debtServiceRatiosYearStr) && (<li>DCR is {debtServiceRatiosStr} for {debtServiceRatiosYearStr}</li>)}
             </ul>
 
             {record.guarantors.length > 0 &&
@@ -199,7 +199,7 @@ const ProjectShowInfo = ({ record }) => {
             <p><b>RISK RATING SCORE: {record.riskRatingScore}</b></p>
 
             <p>SBA Appraisal Approval: {record.sbaAppraisalApproval ? 'yes' : 'no'}</p>
-            <p>SBA Authorization #: {record.sbaAuthorizationNumber}</p>
+            {record.sbaAuthorizationNumber && (<p>SBA Authorization #:{record.sbaAuthorizationNumber}</p>)}
             <p>Environmental Approval: {record.environmentalApproval ? 'yes' : 'no'}</p>
 
         </>
