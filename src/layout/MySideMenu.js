@@ -23,9 +23,9 @@ const MySideMenu = ({ onMenuClick, toggleSidebar, logout }) => {
 
     return (
         <div>
-            <MenuItemLink to = '/home' primaryText = 'Home' 
-                          leftIcon = {<DashboardIcon onClick = {onMenuClick}/>}
-                          sidebarIsOpen = {open} />
+            {/*<MenuItemLink to = '/home' primaryText = 'Home' */}
+                          {/*leftIcon = {<DashboardIcon onClick = {onMenuClick}/>}*/}
+                          {/*sidebarIsOpen = {open} />*/}
             <MenuItemLink to = '/projects' primaryText = 'Projects' 
                           leftIcon = {<AssignmentIcon onClick = {onMenuClick} />}
                           sidebarIsOpen = {open}/> 
@@ -36,7 +36,7 @@ const MySideMenu = ({ onMenuClick, toggleSidebar, logout }) => {
                             leftIcon = {<BusinessIcon onClick = {onMenuClick}/>}
                             sidebarIsOpen = {open}/>
             <MenuItemLink to = '/users' primaryText = 'Staff'
-                          leftIcon = {<BusinessIcon onClick = {onMenuClick}/>}
+                          leftIcon = {<DashboardIcon onClick = {onMenuClick}/>}
                           sidebarIsOpen = {open}/>
             <SubMenu                 
                 handleToggle={() => handleToggle('menuConfigurations')}
