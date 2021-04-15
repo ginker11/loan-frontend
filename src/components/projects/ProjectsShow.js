@@ -38,8 +38,12 @@ const ProjectShowInfo = ({ record }) => {
     let totalFinancingAmount = 0;
     let totalMonthlyPAndI = 0;
     record.projectFinancingSources.forEach( source => {
-        totalFinancingAmount += parseFloat(source['amount']);
-        totalMonthlyPAndI += parseFloat(source['principalAndInterestPayment']);
+        if (source['amount']) {
+            totalFinancingAmount += parseFloat(source['amount']);
+        }
+        if (source['principalAndInterestPayment']) {
+            totalMonthlyPAndI += parseFloat(source['principalAndInterestPayment']);
+        }
     });
 
     let debtServiceRatiosStr = '';
@@ -102,13 +106,13 @@ const ProjectShowInfo = ({ record }) => {
                                 <TableCell component="th" scope="row">
                                     {row.financingSource.name}
                                 </TableCell>
-                                <TableCell align="right">{currencyFormat(row.amount)}</TableCell>
+                                <TableCell align="right">{row.amount ? currencyFormat(row.amount) : ''}</TableCell>
                                 <TableCell align="right">{row.term}</TableCell>
                                 <TableCell align="right">{row.percentage}%</TableCell>
-                                <TableCell align="right">{currencyFormat(row.principalAndInterestPayment)}</TableCell>
-                                <TableCell align="right">{row.amortization}</TableCell>
-                                <TableCell align="right">{row.rate}%</TableCell>
-                                <TableCell align="right">{row.lienPosition.position}</TableCell>
+                                <TableCell align="right">{row.principalAndInterestPayment ? currencyFormat(row.principalAndInterestPayment) : ''}</TableCell>
+                                <TableCell align="right">{row.amortization ? row.amortization : ''}</TableCell>
+                                <TableCell align="right">{row.rate ? row.rate + '%' : ''}</TableCell>
+                                <TableCell align="right">{row.lienPosition ? row.lienPosition.position : ''}</TableCell>
                             </TableRow>
                         ))}
                         <tr>

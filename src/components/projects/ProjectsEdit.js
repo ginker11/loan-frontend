@@ -153,8 +153,12 @@ export const ProjectsEdit = props => {
                         <Datagrid expand={<PostPanel />}>
                             <TextField source = 'lienPosition.position' label = 'Lien Position'/>
                             <TextField source = 'financingSource.name' label = 'Financing Source'/>
-                            <FunctionField label = 'Amount' 
-                                render = {record => `$${parseFloat(record.amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}` } 
+                            <FunctionField label = 'Amount'
+                                render = {record =>
+                                    `${
+                                        record.amount ? '$' + parseFloat(record.amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : '$0'
+                                    }`
+                                }
                             />
                             <FunctionField label = 'Percentage' 
                                 render = {record => record.percentage + '%' } 

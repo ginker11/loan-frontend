@@ -19,8 +19,13 @@ const ProjectFinancingSourceSummary = (props) => {
 
         //Go through data to obtain relevant sums
         Object.keys(data).forEach((source, index) => {
-            totalFinancingAmount += parseFloat(data[source]['amount']);
-            totalMonthlyPAndI += parseFloat(data[source]['principalAndInterestPayment']);
+            if (data[source]['amount']) {
+                totalFinancingAmount += parseFloat(data[source]['amount']);
+            }
+            if (data[source]['principalAndInterestPayment']) {
+                totalMonthlyPAndI += parseFloat(data[source]['principalAndInterestPayment']);
+            }
+
         })
 
         setLocalTotalFinancingAmount(currencyFormat(totalFinancingAmount));
