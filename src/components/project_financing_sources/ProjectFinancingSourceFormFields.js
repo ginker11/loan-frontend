@@ -98,22 +98,22 @@ if (error) return <Error />;
             </ReferenceInput>
           </Grid>
           <Grid item xs={12} sm={6}>
-              <TextInput validate={[]} fullWidth label = 'Amount' source = 'amount' initialValue="0" validate={[required()]} />
+              <TextInput validate={[]} fullWidth label = 'Amount' source = 'amount' />
           </Grid>
           <Grid item xs={12} sm={6}>
-              <TextInput validate={[]} fullWidth label = 'Principal and Interest Payment' source = 'principalAndInterestPayment' initialValue="0" validate={[required()]} />
+              <TextInput validate={[]} fullWidth label = 'Principal and Interest Payment' source = 'principalAndInterestPayment' />
           </Grid>
           <Grid item xs={12} sm={6}>
-              <NumberInput validate={[]} fullWidth label = 'Amortization' source = 'amortization' initialValue="0" validate={[required()]} />
+              <NumberInput validate={[]} fullWidth label = 'Amortization' source = 'amortization' />
           </Grid>
           <Grid item xs={12} sm={6}>
-              <TextInput validate={[]} fullWidth label = 'Rate' source = 'rate' initialValue="0" validate={[required()]} />
+              <TextInput validate={[]} fullWidth label = 'Rate' source = 'rate' />
           </Grid>
           <Grid item xs={12} sm={6}>
-              <NumberInput validate={[]} fullWidth label = 'Term' source = 'term' initialValue="0" validate={[required()]} />
+              <NumberInput validate={[]} fullWidth label = 'Term' source = 'term' />
           </Grid>
           <Grid item xs={12} sm={6}>
-              <TextInput disabled fullWidth label = 'Percentage' source = 'percentage' initialValue="0" validate={[required()]} />
+              <TextInput disabled fullWidth label = 'Percentage' source = 'percentage' />
           </Grid>
         </Grid>
       </Grid>
